@@ -1,0 +1,916 @@
+/* Variáveis de Cores */
+:root {
+    --primary-color: #7D3C98;
+    --secondary-color: #A9CCE3;
+    --accent-color: #F5B041;
+    --text-color: #333;
+    --light-bg: #F4F6F7;
+    --white: #fff;
+    --shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    --hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--white);
+    overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Navegação (Header) - Estilos para Mobile First */
+header {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: box-shadow 0.3s ease;
+}
+
+header.scrolled {
+     box-shadow: var(--hover-shadow);
+}
+
+nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.logo img {
+    height: 50px;
+    display: block;
+}
+
+.hamburger {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1100;
+}
+
+.hamburger i {
+    transition: transform 0.3s ease;
+}
+
+.hamburger.is-active i {
+    transform: rotate(90deg);
+}
+
+.nav-links {
+    list-style: none;
+    position: fixed;
+    top: 70px; /* Ajustar com base na altura real do seu header */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background-color: var(--primary-color);
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    display: flex;
+    z-index: 1050;
+}
+
+.nav-links.open {
+    transform: translateX(0);
+}
+
+.nav-links li {
+    margin: 15px 0;
+    width: 100%;
+    text-align: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--white);
+    font-weight: 600;
+    padding: 15px 0;
+    display: block;
+    font-size: 1.3em;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-color);
+}
+
+.nav-links a::after {
+    display: none;
+}
+
+
+/* Seções Gerais - Mobile First */
+.section {
+    padding: 60px 0;
+    overflow: hidden;
+}
+
+.section:nth-of-type(odd) {
+     background-color: var(--light-bg);
+}
+
+#sobre {
+    background-color: var(--white);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+/* Seção Hero (Início) - Mobile First */
+#hero {
+    background-size: cover;
+    background-position: center;
+    min-height: unset;
+    padding-top: 100px;
+    padding-bottom: 60px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#hero .container {
+    width: 100%;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hero-text {
+    flex: unset;
+    min-width: unset;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+#hero.loaded .hero-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-image {
+    flex: unset;
+    min-width: unset;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transition-delay: 0.2s;
+}
+
+#hero.loaded .hero-image {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border: none;
+}
+
+#hero h1 {
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+#hero p {
+    font-size: 1.4em;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+/* Botões - Mobile First */
+.btn-primary, .btn-whatsapp {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    margin-bottom: 25px; /* Espaço abaixo do botão WhatsApp */
+}
+
+.btn-primary:hover, .btn-whatsapp:hover {
+    background-color: #6a3388;
+    transform: translateY(-3px);
+    box-shadow: var(--hover-shadow);
+}
+
+.btn-whatsapp {
+     background-color: #25D366;
+     box-shadow: var(--shadow);
+}
+
+.btn-whatsapp:hover {
+    background-color: #1DA851;
+    transform: translateY(-3px);
+    box-shadow: var(--hover-shadow);
+}
+
+
+.btn-whatsapp i {
+    margin-right: 8px;
+}
+
+/* Seção Sobre - Mobile First */
+.about-section .container {
+     max-width: 100%;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-text {
+    flex: unset;
+    min-width: unset;
+    width: 100%;
+    text-align: center;
+}
+
+.about-text p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.about-image {
+     flex: unset;
+     min-width: 180px;
+     max-width: 250px;
+     text-align: center;
+     margin-top: 20px;
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+/* Seção Experiência - Mobile First */
+.experience-section .container {
+    max-width: 100%;
+}
+
+.experience-content {
+   text-align: center;
+}
+
+.experience-content p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left; /* Mantido left conforme original */
+}
+
+.experience-list {
+    list-style: none;
+    margin-top: 20px;
+    padding: 0;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.experience-list li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: var(--text-color);
+    text-align: left; /* Mantido left conforme original */
+    border-bottom: 1px dashed var(--secondary-color);
+    padding-bottom: 10px;
+}
+
+.experience-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.experience-list i {
+    margin-right: 10px;
+    color: var(--primary-color);
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+/* Seção Serviços - Mobile First */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.service-item {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.service-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Ajusta o delay da animação para mobile se necessário, mas 0s funciona bem */
+.services-grid .service-item:nth-child(odd),
+.services-grid .service-item:nth-child(even) {
+    transition-delay: 0s;
+}
+
+
+.service-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow);
+    border: 3px solid var(--secondary-color);
+}
+
+.service-item h3 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.service-item p {
+    font-size: 0.95em;
+    color: var(--text-color);
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+
+/* Seção Contato - Mobile First */
+.contact-section {
+    text-align: center;
+}
+
+.contact-section p {
+     font-size: 1.1em;
+     margin-bottom: 20px;
+}
+
+/* Removido estilos de social links da seção contato */
+
+
+/* Footer - Mobile First */
+footer {
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center; /* Centraliza o wrapper no mobile */
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+/* Estilos para o novo wrapper dentro do footer container */
+.footer-content-wrapper {
+    width: 100%; /* Ocupa a largura total do container */
+    /* Não precisa de display:flex aqui, elementos são blocos por padrão e se empilham */
+}
+
+/* Estilos para os social links no footer (mobile) */
+.footer-social-links {
+    /* order: -1; REMOVIDO - A ordem agora é controlada pelo HTML */
+    margin-top: 0; /* Garante sem margem extra acima */
+    margin-bottom: 15px; /* Adiciona espaço ABAIXO dos ícones para separar do texto no mobile */
+    font-size: 2em; /* Mantido tamanho de ícone para mobile */
+    padding: 0;
+}
+
+/* Estilos para o parágrafo de copyright no footer (mobile) */
+.footer-content-wrapper > p {
+    /* order: 1; REMOVIDO - A ordem agora é controlada pelo HTML */
+    margin-top: 0; /* Garante que não haja margem superior extra */
+    margin-bottom: 0; /* Garante que não haja margem inferior extra */
+}
+
+
+/* ESTILOS DOS ÍCONES SOCIAIS (Aplicado globalmente) */
+.social-icon {
+    color: var(--white);
+    margin: 0 5px; /* Espaço entre os ícones no mobile */
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    font-size: 1em; /* Base font size for icons, size controlled by parent */
+}
+
+/* Ajustar cor no hover */
+.social-icon:hover {
+    color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+
+/* Botão Voltar ao Topo - Mobile First */
+#back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+#back-to-top:hover {
+    background-color: #87a9be;
+    transform: translateY(-3px);
+    box-shadow: var(--hover-shadow);
+}
+
+
+/* =================================== */
+/* Media Queries (Desktop) */
+/* =================================== */
+
+
+/* Estilos para Tablet e Desktop (min-width 769px) */
+@media (min-width: 769px) {
+     body {
+         line-height: 1.7;
+     }
+
+     .container {
+         max-width: 1100px;
+         padding: 0 25px;
+     }
+
+    /* Navegação (Header) - Desktop */
+    nav .container {
+        padding: 15px 25px;
+    }
+
+    .logo img {
+        height: 60px;
+    }
+
+    /* Menu Hambúrguer - Oculto em Desktop */
+    .hamburger {
+        display: none;
+    }
+
+    /* Links de Navegação - Desktop (Visível) */
+    .nav-links {
+        position: static;
+        transform: translateX(0);
+        background-color: transparent;
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        height: auto;
+        width: auto;
+        display: flex;
+        z-index: auto;
+    }
+
+    .nav-links li {
+        margin-left: 30px;
+        margin-top: 0;
+        width: auto;
+        text-align: left;
+    }
+
+    .nav-links a {
+        color: var(--text-color);
+        padding: 10px 0;
+        font-size: 1.1em;
+        display: inline-block;
+        position: relative;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+        display: block;
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .nav-links a:hover {
+         color: var(--primary-color);
+    }
+
+
+    /* Seções Gerais - Desktop */
+     .section {
+        padding: 80px 0;
+     }
+
+    .section-title {
+        font-size: 2.5em;
+        margin-bottom: 50px;
+    }
+    .section-title::after {
+        bottom: -15px;
+        width: 80px;
+        height: 4px;
+    }
+
+    /* Seção Hero - Desktop */
+    #hero {
+        min-height: 100vh;
+        padding-top: 100px;
+        padding-bottom: 80px;
+    }
+
+    .hero-content {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    .hero-text {
+        flex: 1;
+        min-width: 300px;
+        text-align: left;
+    }
+    .hero-image {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .hero-image img {
+        max-width: 100%; /* Mantido */
+        height: auto; /* Mantido */
+        border-radius: 15px;
+        box-shadow: var(--hover-shadow);
+        border: 5px solid var(--white);
+    }
+
+
+    #hero h1 {
+        font-size: 3.5em;
+    }
+
+    #hero p {
+        font-size: 1.5em;
+        margin-bottom: 40px;
+    }
+
+    /* Botões - Desktop */
+    .btn-primary, .btn-whatsapp {
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-size: 1.1em;
+        margin-bottom: 30px;
+    }
+
+    .btn-primary:hover, .btn-whatsapp:hover {
+        background-color: #6a3388; /* Mantido */
+        transform: translateY(-5px);
+        box-shadow: var(--hover-shadow); /* Mantido */
+    }
+     .btn-whatsapp:hover {
+        background-color: #1DA851; /* Mantido */
+        transform: translateY(-5px);
+        box-shadow: var(--hover-shadow); /* Mantido */
+     }
+
+
+    /* Seção Sobre - Desktop */
+    .about-section .container {
+         max-width: 900px;
+     }
+
+    .about-content {
+        flex-direction: row;
+        gap: 40px;
+    }
+
+    .about-text, .about-image {
+        flex: unset;
+        min-width: unset;
+        width: auto;
+         text-align: left;
+    }
+
+    .about-text {
+         flex: 2;
+         min-width: 300px;
+    }
+
+    .about-image {
+         flex: 1;
+         min-width: 200px;
+         max-width: 300px;
+         margin-top: 0;
+         text-align: center;
+    }
+
+    .about-image img {
+        max-width: 100%; /* Mantido */
+        height: auto; /* Mantido */
+        border-radius: 50%;
+         box-shadow: var(--shadow);
+    }
+
+    /* Seção Experiência - Desktop */
+    .experience-section .container {
+         max-width: 900px;
+     }
+
+    .experience-content p {
+         max-width: 800px;
+         text-align: center;
+         margin-bottom: 20px;
+    }
+
+    .experience-list {
+        max-width: 700px;
+        margin-top: 30px;
+    }
+     .experience-list li {
+         text-align: left;
+          margin: 0 auto 15px;
+         max-width: 100%;
+         padding-bottom: 15px;
+     }
+
+     .experience-list i {
+         margin-right: 10px; /* Mantido */
+         color: var(--primary-color); /* Mantido */
+         font-size: 1.3em;
+         vertical-align: middle; /* Mantido */
+     }
+
+
+    /* Seção Serviços - Desktop */
+    .services-grid {
+         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .service-item {
+         padding: 20px;
+         border-radius: 10px;
+         transform: translateY(30px); /* Mantido */
+    }
+
+    .service-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+
+    .service-item img {
+         width: 180px;
+         height: 180px;
+         border-radius: 50%;
+         object-fit: cover;
+         margin-bottom: 15px;
+         display: block;
+         margin-left: auto;
+         margin-right: auto;
+         border: 4px solid var(--secondary-color);
+         box-shadow: var(--shadow);
+    }
+
+     .service-item h3 {
+        font-size: 1.4em;
+    }
+
+     .service-item p {
+        font-size: 1em;
+    }
+
+     /* Ajusta o delay da animação para desktop */
+    .services-grid .service-item:nth-child(odd) {
+        transition-delay: 0.1s;
+    }
+    .services-grid .service-item:nth-child(even) {
+        transition-delay: 0.2s;
+    }
+
+
+    /* Seção Contato - Desktop */
+    .contact-section p {
+        font-size: 1.2em;
+        margin-bottom: 25px;
+    }
+
+
+    /* Footer - Desktop */
+    footer {
+        padding: 30px 0;
+        font-size: 1em;
+    }
+
+    /* Container - Removed flex properties */
+    footer .container {
+        max-width: 1100px;
+        padding: 0 25px;
+    }
+
+     /* Estilos para o NOVO wrapper dentro do footer container em desktop */
+    .footer-content-wrapper {
+        display: flex; /* Ativa flexbox para desktop */
+        flex-direction: row; /* Coloca itens lado a lado */
+        align-items: center; /* Alinha itens verticalmente ao centro */
+        justify-content: center; /* Centraliza os itens (div social e p) como um grupo */
+        gap: 30px; /* Adiciona espaço entre os dois itens */
+        width: auto; /* Deixa a largura ser determinada pelo conteúdo + gap */
+        margin: 0 auto; /* Centraliza o wrapper horizontalmente dentro do container */
+        flex-wrap: wrap; /* Permite quebra de linha em telas menores dentro do breakpoint */
+    }
+
+    /* Estilos para os social links no footer (desktop) */
+    .footer-social-links {
+        /* order: -1; REMOVIDO - A ordem agora é controlada pelo HTML */
+        margin-bottom: 0; /* Remove margin-bottom de mobile */
+        font-size: 2em; /* Size of icons */
+        padding: 0; /* Garante que não haja padding */
+    }
+
+    /* Estilos para o parágrafo de copyright no footer (desktop) */
+    .footer-content-wrapper > p {
+        /* order: 1; REMOVIDO - A ordem agora é controlada pelo HTML */
+        margin-bottom: 0; /* Remove margin-bottom do parágrafo em desktop */
+    }
+
+
+    /* Ajuste de margin horizontal entre ícones em desktop */
+     .social-icon {
+        margin: 0 10px; /* Space between individual icons */
+        /* font-size: 1em; - already global */
+     }
+     .social-icon:hover {
+         transform: scale(1.2); /* Efeito de hover */
+     }
+}
+
+/* Estilos para Telas Maiores que Tablet (min-width 993px) */
+@media (min-width: 993px) {
+    .container {
+        max-width: 1200px;
+    }
+
+     .section {
+         padding: 100px 0;
+     }
+
+    .section-title {
+        font-size: 3em;
+        margin-bottom: 60px;
+    }
+
+    /* Seção Serviços - Desktop Grande */
+     .services-grid {
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+     .service-item {
+         padding: 25px;
+     }
+
+     .service-item img {
+         width: 200px;
+         height: 200px;
+         margin-bottom: 20px;
+     }
+
+     .service-item h3 {
+        font-size: 1.6em;
+    }
+
+     .service-item p {
+        font-size: 1.05em;
+    }
+
+     /* Seção Contato - Desktop Grande */
+      .contact-section p {
+        font-size: 1.3em;
+        margin-bottom: 30px;
+    }
+
+     /* Footer - Desktop Grande */
+      footer .container {
+        max-width: 1200px; /* Mantido */
+    }
+
+     /* Estilos para o wrapper em desktop grande - Ajustar gap se necessário */
+     .footer-content-wrapper {
+         gap: 40px; /* Aumenta o espaço entre texto e ícones em telas maiores */
+     }
+
+     /* Estilos para social links em desktop grande */
+    .footer-social-links {
+        font-size: 2.2em; /* Talvez aumentar um pouco os ícones */
+        padding: 0; /* Garante que não haja padding */
+    }
+     /* Ajuste de margin horizontal entre ícones em telas grandes */
+     .social-icon {
+         margin: 0 12px; /* Aumenta um pouco mais o espaço entre os ícones */
+     }
+     .social-icon:hover {
+         transform: scale(1.2); /* Mantido o efeito maior */
+     }
+
+}
