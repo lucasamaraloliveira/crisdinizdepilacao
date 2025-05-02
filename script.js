@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Header Dinâmico (mudar sombra ao rolar)
     const header = document.querySelector('header');
-    // const heroHeight = heroSection ? heroSection.offsetHeight : 600; // Altura do hero ou fallback - Não necessário para a sombra do header
 
     window.addEventListener('scroll', () => {
         // Adiciona a classe 'scrolled' quando a rolagem for maior que 50px (ou header.offsetHeight se preferir)
@@ -26,36 +25,77 @@ document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     const body = document.body;
+    // Seleciona o elemento <i> que contém o ícone
+    const hamburgerIcon = hamburger ? hamburger.querySelector('i') : null;
 
-    if (hamburger && navLinks && body) {
+    // Função para atualizar o ícone do hambúrguer (bars ou times/x)
+    function updateHamburgerIcon() {
+        if (!hamburgerIcon) return; // Sai se o elemento do ícone não for encontrado
+
+        // Verifica se o menu de navegação está aberto (pela classe 'open' nos links)
+        const isMenuOpen = navLinks.classList.contains('open');
+
+        if (isMenuOpen) {
+            // Menu está aberto, muda para 'X'
+            hamburgerIcon.classList.remove('fa-bars');
+            hamburgerIcon.classList.add('fa-times'); // Use fa-times para o ícone de fechar
+            hamburger.setAttribute('aria-label', 'Fechar menu'); // Atualiza o rótulo de acessibilidade
+        } else {
+            // Menu está fechado, volta para 'hambúrguer'
+            hamburgerIcon.classList.remove('fa-times');
+            hamburgerIcon.classList.add('fa-bars');
+            hamburger.setAttribute('aria-label', 'Abrir menu'); // Atualiza o rótulo de acessibilidade
+        }
+         // Opcional: Mantenha a classe 'is-active' no botão se usá-la para outros estilos
+        if (isMenuOpen) {
+            hamburger.classList.add('is-active');
+        } else {
+            hamburger.classList.remove('is-active');
+        }
+    }
+
+
+    if (hamburger && navLinks && body && hamburgerIcon) { // Garante que todos os elementos existem
         // Abrir/Fechar menu ao clicar no hambúrguer
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('open');
-            hamburger.classList.toggle('is-active'); // Opcional: para animar o ícone
             body.classList.toggle('no-scroll'); // Previne scroll no body
+
+            // Atualiza o estado do ícone DEPOIS de alternar a classe 'open'
+            updateHamburgerIcon();
         });
 
         // Fechar menu ao clicar em um link (para navegação suave)
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (navLinks.classList.contains('open')) {
+                    // Fecha o menu removendo as classes
                     navLinks.classList.remove('open');
-                    hamburger.classList.remove('is-active');
                     body.classList.remove('no-scroll');
+
+                    // Atualiza o estado do ícone DEPOIS de fechar o menu
+                    updateHamburgerIcon();
                 }
             });
         });
 
         // Opcional: Fechar menu ao redimensionar a janela (se o menu mobile estiver aberto)
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) { // Use o breakpoint CSS onde o menu hamburguer some
+            // Verifica se a largura da janela é maior que o breakpoint onde o menu hamburguer some no CSS
+            if (window.innerWidth > 768) {
                  if (navLinks.classList.contains('open')) {
+                    // Fecha o menu removendo as classes
                     navLinks.classList.remove('open');
-                    hamburger.classList.remove('is-active');
                     body.classList.remove('no-scroll');
+
+                    // Atualiza o estado do ícone DEPOIS de fechar o menu
+                    updateHamburgerIcon();
                 }
             }
         });
+
+        // Inicializa o estado do ícone ao carregar a página (opcional, mas boa prática)
+        // updateHamburgerIcon(); // Assume que o menu começa fechado, o estado padrão já é fa-bars
     }
 
 
@@ -69,7 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (targetElement) {
                 // Calcula a posição do topo do elemento, subtraindo a altura do header fixo
-                const headerOffset = document.querySelector('header').offsetHeight;
+                // Certifica-se de que o header existe antes de obter a altura
+                const headerOffset = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.scrollY - headerOffset;
 

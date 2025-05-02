@@ -80,12 +80,17 @@ nav .container {
 }
 
 .hamburger i {
-    transition: transform 0.3s ease;
+    /* A animação de transform aqui pode conflitar com a troca de ícone. */
+    /* Removemos ou ajustamos se causar problemas visuais com o 'X'. */
+    /* transition: transform 0.3s ease; */
+    transition: color 0.3s ease; /* Adiciona transição para a cor se mudar */
 }
 
-.hamburger.is-active i {
+/* REMOVIDO: Não precisamos mais girar, apenas trocaremos o ícone */
+/* .hamburger.is-active i {
     transform: rotate(90deg);
-}
+} */
+
 
 .nav-links {
     list-style: none;
@@ -324,8 +329,8 @@ nav .container {
 
 /* Seção Experiência - Mobile First */
 .experience-section .container {
-    max-width: 100%;
-}
+     max-width: 100%;
+ }
 
 .experience-content {
    text-align: center;
@@ -601,7 +606,7 @@ footer {
     }
 
     .hamburger {
-        display: none;
+        display: none; /* Oculta o hambúrguer no desktop */
     }
 
     .nav-links {
@@ -613,7 +618,7 @@ footer {
         padding: 0;
         height: auto;
         width: auto;
-        display: flex;
+        display: flex; /* Garante que os links apareçam no desktop */
         z-index: auto;
     }
 
@@ -860,11 +865,14 @@ footer {
     }
 
     .testimonial-text {
+        font-style: italic;
         margin-bottom: 20px;
         font-size: 1.05em;
     }
 
     .testimonial-author {
+        font-weight: 600;
+        color: var(--primary-color);
         font-size: 1em;
     }
 
