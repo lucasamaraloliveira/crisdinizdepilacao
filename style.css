@@ -152,6 +152,20 @@ nav .container {
     background-color: var(--white);
 }
 
+/* Adicionar background para a nova seção se necessário */
+/* Se a seção de promoções for a 4ª (hero, sobre, experiencia, servicos, promocoes),
+   ela será a 5ª seção, que é ímpar, então já terá background light-bg.
+   Se for a 5ª (hero, sobre, experiencia, servicos, promocoes, depoimentos, contato)
+   ela será a 5ª, ímpar, light-bg.
+   Se for a 6ª (hero, sobre, experiencia, servicos, depilacao-laser, promocoes, depoimentos, contato)
+   ela seria par.
+   No seu caso atual (5 seções antes de #promocoes), ela será a 6ª seção e ficará com fundo branco.
+   Para garantir que ela tenha fundo light-bg, você pode adicionar: */
+#promocoes {
+    background-color: var(--light-bg);
+}
+
+
 .section-title {
     text-align: center;
     font-size: 2.2em;
@@ -286,6 +300,14 @@ nav .container {
 .btn-whatsapp i {
     margin-right: 8px;
 }
+
+/* Novo estilo para botão pequeno, se usar .btn-small */
+.btn-small {
+    padding: 8px 15px; /* Ajuste o padding para o tamanho desejado */
+    font-size: 0.9em; /* Ajuste a fonte */
+    margin-top: 15px; /* Espaço acima do botão dentro do item */
+}
+
 
 /* Seção Sobre - Mobile First */
 .about-section .container {
@@ -433,6 +455,81 @@ nav .container {
     transform: translateY(-5px);
     box-shadow: var(--hover-shadow);
 }
+
+
+/* NOVA SEÇÃO: PROMOÇÕES - Mobile First */
+.promotions-section {
+    /* Background já definido acima se necessário, ou depende de nth-of-type(odd) */
+    /* background-color: var(--light-bg); */
+    text-align: center;
+}
+
+.promotions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.promotion-item {
+    background-color: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    /* Adiciona espaço inferior se tiver botão dentro */
+    padding-bottom: 25px;
+}
+
+.promotion-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.promotions-grid .promotion-item:nth-child(odd),
+.promotions-grid .promotion-item:nth-child(even) {
+    transition-delay: 0s; /* Resetar delay para animação individual */
+}
+
+.promotion-item img {
+    width: 120px; /* Tamanho um pouco menor para imagem/ícone da promo */
+    height: 120px;
+    /* Pode ser quadrado ou redondo, dependendo da sua imagem */
+    /* border-radius: 50%; */
+    border-radius: 8px; /* Use border-radius igual ao item */
+    object-fit: cover;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow);
+    border: 3px solid var(--secondary-color);
+}
+
+.promotion-item h3 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.promotion-item p {
+    font-size: 0.95em;
+    color: var(--text-color);
+}
+
+.promotion-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Estilo para esconder a seção de promoções */
+.promotions-section.hidden {
+    display: none;
+}
+/* FIM NOVA SEÇÃO: PROMOÇÕES */
 
 
 /* SEÇÃO: DEPOIMENTOS - Mobile First */
@@ -732,6 +829,13 @@ footer {
         box-shadow: var(--hover-shadow);
      }
 
+    /* Novo estilo para botão pequeno, se usar .btn-small - Desktop */
+     .btn-small {
+        padding: 10px 20px; /* Ajuste para desktop */
+        font-size: 1em; /* Ajuste para desktop */
+        margin-top: 20px; /* Espaço acima do botão dentro do item - Desktop */
+    }
+
 
     /* Seção Sobre - Desktop */
     .about-section .container {
@@ -844,6 +948,52 @@ footer {
     .services-grid .service-item:nth-child(even) {
         transition-delay: 0.2s;
     }
+
+    /* NOVA SEÇÃO: PROMOÇÕES - Desktop */
+    .promotions-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+     .promotion-item {
+         padding: 20px;
+         border-radius: 10px;
+         transform: translateY(30px);
+         /* Remove ou ajusta padding-bottom se o botão tiver margem superior suficiente */
+         padding-bottom: 20px;
+     }
+
+    .promotion-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+
+    .promotion-item img {
+         width: 150px; /* Tamanho ajustado para desktop */
+         height: 150px;
+         /* border-radius: 50%; */
+         border-radius: 10px;
+         margin-bottom: 15px;
+         border: 4px solid var(--secondary-color);
+         box-shadow: var(--shadow);
+    }
+
+     .promotion-item h3 {
+        font-size: 1.4em;
+    }
+
+     .promotion-item p {
+        font-size: 1em;
+    }
+
+     .promotions-grid .promotion-item:nth-child(odd) {
+        transition-delay: 0.1s;
+    }
+    .promotions-grid .promotion-item:nth-child(even) {
+        transition-delay: 0.2s;
+    }
+    /* FIM NOVA SEÇÃO: PROMOÇÕES - Desktop */
+
 
     /* SEÇÃO: DEPOIMENTOS - Desktop */
     .testimonials-container {
@@ -1001,6 +1151,40 @@ footer {
      .service-item p {
         font-size: 1.05em;
     }
+
+     /* NOVA SEÇÃO: PROMOÇÕES - Desktop Grande */
+      .promotions-grid {
+         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+         gap: 40px;
+     }
+
+     .promotion-item {
+         padding: 25px;
+         padding-bottom: 25px; /* Mantém o padding-bottom mesmo com botão */
+     }
+
+      .promotion-item img {
+         width: 180px; /* Tamanho ajustado para desktop grande */
+         height: 180px;
+         margin-bottom: 20px;
+     }
+
+     .promotion-item h3 {
+        font-size: 1.6em;
+    }
+
+     .promotion-item p {
+        font-size: 1.05em;
+    }
+
+     .btn-small {
+        padding: 12px 25px; /* Ajuste para desktop grande */
+        font-size: 1.05em; /* Ajuste para desktop grande */
+        margin-top: 25px; /* Espaço acima do botão dentro do item - Desktop Grande */
+     }
+
+     /* FIM NOVA SEÇÃO: PROMOÇÕES - Desktop Grande */
+
 
      /* SEÇÃO: DEPOIMENTOS - Desktop Grande */
      .testimonials-container {

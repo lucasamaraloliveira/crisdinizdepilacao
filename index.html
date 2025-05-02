@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Removido link icon SVG duplicado ou conflitante -->
 
     <!-- CAMPO PARA ALTERAR O FAVICON -->
     <!-- Você deve substituir 'caminho/para/seu/favicon.ico' ou 'caminho/para/seu/favicon.png' -->
@@ -34,6 +33,8 @@
                     <li><a href="#sobre">Sobre</a></li>
                     <li><a href="#experiencia">Experiência</a></li>
                     <li><a href="#servicos">Serviços</a></li>
+                    <!-- Adicionar link para Promoções aqui -->
+                    <li><a href="#promocoes">Promoções</a></li>
                     <li><a href="#depoimentos">Depoimentos</a></li>
                     <li><a href="#contato">Contato</a></li>
                 </ul>
@@ -125,6 +126,38 @@
         </div>
     </section>
 
+    <!-- NOVA SEÇÃO: PROMOÇÕES -->
+    <!-- Adicionada a classe 'promotions-toggleable' para controle via JS -->
+    <section id="promocoes" class="section promotions-section promotions-toggleable">
+        <div class="container">
+            <h2 class="section-title">Promoções Especiais</h2>
+            <div class="promotions-grid">
+                <!-- Exemplo de Item de Promoção 1 -->
+                <!-- Adicionada a classe 'animate-on-scroll' para animação existente -->
+                <div class="promotion-item animate-on-scroll">
+                    <!-- Usar imagem/ícone relevante para a promoção -->
+                    <!-- Substitua 'img/promo-placeholder.png' pela imagem da sua promoção -->
+                    <img src="img/diadasmaes.png" alt="Promoção 1">
+                    <h3>Promoção Semana das Mães: Cuide-se e Concorra!</h3> <!-- Este texto será usado na mensagem -->
+                    <p>Só até domingo! Faça qualquer atendimento (<b>Depilação, sobrancelha, massagem, relaxante humanizada, skincare, renovação podal</b>) e entre no sorteio de um prêmio especial para você e sua mãe. Aproveite antes que acabe!</p>
+                    <!-- Botão para agendar esta promoção específica -->
+                    <!-- Adicionada a classe 'btn-promo-whatsapp' e alterado o href -->
+                    <a href="javascript:void(0);" class="btn-primary btn-small btn-promo-whatsapp">Agendar Promo</a>
+                </div>
+
+
+                <!-- Adicione mais divs .promotion-item aqui para outras promoções -->
+
+            </div>
+            <!-- Opcional: Botão para "Ver Todas as Promoções" se houver muitas -->
+            <!-- <div class="btn-container">
+                 <a href="#" class="btn-primary">Ver Todas</a>
+            </div> -->
+        </div>
+    </section>
+    <!-- FIM NOVA SEÇÃO: PROMOÇÕES -->
+
+
     <!-- SEÇÃO: DEPOIMENTOS -->
     <section id="depoimentos" class="section testimonials-section">
         <div class="container">
@@ -163,7 +196,6 @@
             </div>
             <!-- Botão Saiba Mais (anteriormente Ver Mais Depoimentos) ajustado AQUI -->
             <div class="btn-container">
-                 <!-- MUDANÇA AQUI: classe para btn-primary e texto alterado, ícone removido -->
                  <a href="https://www.google.com/maps/place/Cris+Diniz+Depila%C3%A7%C3%A3o/@-22.9169464,-43.6281679,17z/data=!4m8!3m7!1s0x9bfb6e988d3611:0x4c373ee4cbd97ea2!8m2!3d-22.9169514!4d-43.625593!9m1!1b1!16s%2Fg%2F11jg43mt50?entry=ttu&g_ep=EgoyMDI1MDQyOS4wIKXMDSoASAFQAw%3D%3D" class="btn-primary btn-view-more" target="_blank">
                     Saiba Mais <!-- Texto alterado -->
                  </a>
