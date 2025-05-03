@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- URLs e NÚMEROS ---
     const whatsappNumber = '5521976430017'; // Seu número do WhatsApp
-    const generalHotmartEbooksURL = 'SUA_URL_GERAL_HOTMART_EBOOKS'; // SUBSTITUA PELA URL REAL DA SUA PÁGINA GERAL DE EBOOKS NO HOTMART
+    // const generalHotmartEbooksURL = 'SUA_URL_GERAL_HOTMART_EBOOKS'; // Desativado pois o link hotmart é por ebook agora
     // --- FIM URLs e NÚMEROS ---
 
 
@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function() {
                  const targetId = this.getAttribute('href').substring(1);
                  const isPromotionsLink = targetId === 'promocoes';
+                 // Fecha o menu se NÃO for o link de promoções QUANDO ela está desativada
                  const shouldCloseMenu = !isPromotionsLink || (isPromotionsLink && showPromotionsSection);
 
                  if (navLinks.classList.contains('open') && shouldCloseMenu) {
@@ -117,8 +118,10 @@ document.addEventListener('DOMContentLoaded', function() {
              const targetElement = document.getElementById(targetId);
 
              const isPromotionsLink = targetId === 'promocoes';
+             // Só rola se a seção de promoções estiver ativada OU se não for o link de promoções
+             const shouldScroll = !isPromotionsLink || (isPromotionsLink && showPromotionsSection);
 
-             if (targetElement && (!isPromotionsLink || (isPromotionsLink && showPromotionsSection))) {
+             if (targetElement && shouldScroll) {
                  e.preventDefault();
 
                 const headerOffset = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
@@ -130,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
              } else if (isPromotionsLink && !showPromotionsSection) {
+                 // Se for o link de promoções e a seção estiver desativada, previne o comportamento padrão
                  e.preventDefault();
              }
         });
@@ -168,6 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- LÓGICA PARA BOTÕES GERAIS DAS SEÇÕES (Cursos e Ebooks) ---
+    // Estes botões parecem ter sido removidos ou comentados no HTML,
+    // mas a lógica permanece para caso sejam reativados.
     const coursesSectionButton = document.querySelector('.btn-section-courses');
     const ebooksSectionButton = document.querySelector('.btn-section-ebooks');
 
@@ -176,20 +182,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const encodedMessage = encodeURIComponent(message);
         coursesSectionButton.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     } else {
-        console.warn("Botão '.btn-section-courses' não encontrado.");
+        // console.warn("Botão '.btn-section-courses' não encontrado."); // Remover aviso se for intencional
     }
 
     if (ebooksSectionButton) {
+        // Note: A URL geral Hotmart parece não ser usada mais com o modal por item.
+        // Se a URL geral for necessária, descomente a variável e a lógica abaixo.
+        /*
         if (generalHotmartEbooksURL && generalHotmartEbooksURL !== 'SUA_URL_GERAL_HOTMART_EBOOKS') {
              ebooksSectionButton.href = generalHotmartEbooksURL;
         } else {
              console.error("URL geral do Hotmart para Ebooks não definida. O botão pode não funcionar.");
              ebooksSectionButton.removeAttribute('href');
-             // Opcional: Esconde o botão se a URL não estiver configurada
-             // ebooksSectionButton.style.display = 'none';
         }
+        */
+        // Como agora o clique nos itens de ebook abre o modal, este botão geral pode ser removido do HTML ou ter outra função.
+        // A lógica atual do modal usa a URL do item, não a geral.
     } else {
-         console.warn("Botão '.btn-section-ebooks' não encontrado.");
+         // console.warn("Botão '.btn-section-ebooks' não encontrado."); // Remover aviso se for intencional
     }
     // --- FIM LÓGICA BOTÕES GERAIS ---
 
@@ -216,9 +226,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         modalButton.textContent = buttonText;
         modalButton.setAttribute('target', '_blank');
-        modalButton.classList.remove('btn-modal-whatsapp', 'btn-modal-hotmart');
+        modalButton.classList.remove('btn-modal-whatsapp', 'btn-modal-hotmart', 'btn-primary'); // Remove classes de ação/estilo anteriores
+         modalButton.classList.add('btn-primary'); // Adiciona a classe base btn-primary
 
-        modalButton.style.display = '';
+
+        modalButton.style.display = ''; // Garante que o botão seja exibido por padrão
 
         if (buttonAction === 'whatsapp') {
             modalButton.classList.add('btn-modal-whatsapp');
@@ -226,12 +238,17 @@ document.addEventListener('DOMContentLoaded', function() {
             modalButton.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         } else if (buttonAction === 'hotmart') {
              // Note: Estamos usando targetUrl diretamente aqui, vindo do data attribute do item
-             modalButton.classList.add('btn-modal-hotmart'); // Usa estilo primary por padrão
+             // A classe btn-primary já dá o estilo padrão, btn-modal-hotmart pode ser apenas para semântica ou estilos específicos se necessário
+             modalButton.classList.add('btn-modal-hotmart');
              modalButton.href = targetUrl;
+
              // Verificação de URL Hotmart movida para o listener para ser mais específica por item
+             // (Já feita nos listeners de clique)
+
         } else {
-            modalButton.style.display = 'none';
-            modalButton.href = '#';
+            // Se buttonAction for 'none' ou indefinido
+            modalButton.style.display = 'none'; // Esconde o botão
+            modalButton.href = '#'; // Define um href seguro
         }
 
 
@@ -242,13 +259,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function closeModal() {
         if (modal) {
             modal.classList.remove('open');
+            // Atraso para remover no-scroll, permitindo que a transição do modal termine
             setTimeout(() => {
                 body.classList.remove('no-scroll');
-            }, 300);
+            }, 300); // 300ms é o tempo da transição de opacidade no CSS
         }
     }
 
     // --- LISTENERS PARA ABRIR MODAL CLICANDO NO LINK INTERNO (.item-details-link) ---
+    // Listener para Cursos
     document.querySelectorAll('.course-item .item-details-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // Previne o comportamento padrão do link (#)
@@ -262,14 +281,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const title = item.querySelector('h3').textContent;
             const description = item.getAttribute('data-full-description');
-            const imageUrl = item.getAttribute('data-large-image') || item.querySelector('img').src;
+            // Usa data-large-image se existir, caso contrário usa a imagem do próprio item
+            const imageUrl = item.getAttribute('data-large-image') || (item.querySelector('img') ? item.querySelector('img').src : '');
             const buttonText = 'Tenho interesse no curso!';
-            const buttonAction = 'whatsapp';
+            const buttonAction = 'whatsapp'; // Ação para linkar para o WhatsApp
 
             openModal(title, description, imageUrl, buttonText, buttonAction);
         });
     });
 
+    // Listener para Ebooks
     document.querySelectorAll('.ebook-item .item-details-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // Previne o comportamento padrão do link (#)
@@ -283,16 +304,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const title = item.querySelector('h3').textContent;
             const description = item.getAttribute('data-full-description');
-            const imageUrl = item.getAttribute('data-large-image') || item.querySelector('img').src;
+            // Usa data-large-image se existir, caso contrário usa a imagem do próprio item
+            const imageUrl = item.getAttribute('data-large-image') || (item.querySelector('img') ? item.querySelector('img').src : '');
             const hotmartUrl = item.getAttribute('data-hotmart-url');
             const buttonText = 'Comprar Ebook na Hotmart!';
-            const buttonAction = 'hotmart';
+            const buttonAction = 'hotmart'; // Ação para linkar para a Hotmart
 
             // Verifica a URL Hotmart ANTES de tentar abrir o modal com ela configurada
-            if (!hotmartUrl || hotmartUrl === 'SUA_URL_HOTMART_EBOOK1' || hotmartUrl === 'SUA_URL_HOTMART_EBOOK2' || hotmartUrl === 'SUA_URL_GERAL_HOTMART_EBOOKS') {
+            if (!hotmartUrl || hotmartUrl.includes('SUA_URL_HOTMART_EBOOK') || hotmartUrl.includes('SUA_URL_GERAL_HOTMART_EBOOKS')) {
                 console.error(`URL do Hotmart não configurada corretamente para o ebook "${title}". Data attribute: ${hotmartUrl}`);
                 // Opcional: Mostra uma mensagem para o usuário que a URL não está pronta
-                alert(`Desculpe, a compra deste ebook ainda não está disponível. Por favor, entre em contato para mais informações.`);
+                alert(`Desculpe, a compra deste ebook ainda não está disponível ou o link não foi configurado corretamente. Por favor, entre em contato para mais informações.`);
                 return; // Sai da função, não abre o modal
             }
 
@@ -309,6 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (modal) {
+        // Fecha o modal clicando no overlay (fora do conteúdo)
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
                 closeModal();
@@ -316,6 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Fecha o modal pressionando a tecla ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
             closeModal();
@@ -348,23 +372,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             const parentSection = entry.target.closest('.section');
+            // Verifica se a seção pai existe e se tem a classe 'hidden'
             const isHidden = parentSection && parentSection.classList.contains('hidden');
 
             if (entry.isIntersecting && !isHidden) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                observer.unobserve(entry.target); // Para de observar depois de animar
             }
+             // Não remove a classe 'visible' se sair da tela, mantém a animação visível
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -80px 0px'
+        threshold: 0.1, // Quantidade do elemento visível para disparar
+        rootMargin: '0px 0px -80px 0px' // Margem inferior negativa para disparar um pouco antes
     });
 
     elementsToAnimate.forEach(element => {
          const parentSection = element.closest('.section');
          const isHidden = parentSection && parentSection.classList.contains('hidden');
          if (!isHidden) {
-            observer.observe(element);
+            observer.observe(element); // Só observa se a seção não estiver oculta
          }
     });
 });

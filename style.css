@@ -152,7 +152,8 @@ nav .container {
 
 #experiencia,
 #promocoes,
-#ebooks
+#ebooks,
+#midia /* ADICIONADO: Nova seção */
 {
     background-color: var(--light-bg);
 }
@@ -297,15 +298,21 @@ nav .container {
 
 /* Estilo específico para o botão WhatsApp geral */
 .btn-whatsapp {
-     background-color: var(--primary-color);
+     background-color: var(--primary-color); /* Ajuste se necessário, pode ser verde */
      box-shadow: var(--shadow);
 }
 
-.btn-whatsapp:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: var(--hover-shadow);
+/* Nota: O código JS já configura o botão do modal com verde */
+/* Se quiser o botão geral do WhatsApp verde aqui também: */
+/*
+.contact-section .btn-whatsapp {
+     background-color: #25D366;
 }
+.contact-section .btn-whatsapp:hover {
+     background-color: #1DA851;
+}
+*/
+
 
 .btn-whatsapp i {
     margin-right: 8px;
@@ -358,6 +365,7 @@ nav .container {
     height: auto;
     border-radius: 10px;
     box-shadow: var(--shadow);
+    border: none;
 }
 
 /* Seção Experiência - Mobile First */
@@ -435,7 +443,7 @@ nav .container {
 
 .services-grid .service-item:nth-child(odd),
 .services-grid .service-item:nth-child(even) {
-    transition-delay: 0s;
+    transition-delay: 0s; /* Base delay */
 }
 
 .service-item img {
@@ -730,6 +738,86 @@ nav .container {
 }
 /* FIM SEÇÃO: DEPOIMENTOS */
 
+/* NOVA SEÇÃO: NÓS NA MÍDIA - Mobile First */
+.midia-section {
+    text-align: center;
+}
+
+.midia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout responsivo com itens de no mínimo 250px */
+    gap: 20px; /* Espaçamento entre os itens */
+}
+
+.midia-item {
+    background-color: var(--white); /* Cor de fundo para o card */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0; /* Inicialmente invisível para a animação */
+    transform: translateY(20px); /* Inicialmente deslocado para a animação */
+    display: flex; /* Usar flexbox para layout interno */
+    flex-direction: column; /* Colocar elementos um abaixo do outro */
+    justify-content: space-between; /* Espalhar conteúdo verticalmente */
+}
+
+.midia-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Adiciona pequenos atrasos para um efeito de cascade na animação */
+.midia-grid .midia-item:nth-child(odd) {
+    transition-delay: 0.1s;
+}
+.midia-grid .midia-item:nth-child(even) {
+    transition-delay: 0.2s;
+}
+
+
+.midia-item img {
+    width: 120px; /* Tamanho da imagem no mobile */
+    height: 120px; /* Altura da imagem no mobile */
+    border-radius: 8px; /* Bordas arredondadas */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto; /* Centraliza a imagem */
+    margin-right: auto; /* Centraliza a imagem */
+    box-shadow: var(--shadow);
+    border: 3px solid var(--secondary-color); /* Borda colorida */
+}
+
+.midia-item h3 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    flex-grow: 0; /* Não cresce */
+}
+
+.midia-item p {
+    font-size: 0.95em;
+    color: var(--text-color);
+    margin-bottom: 15px; /* Espaço entre o texto e o botão */
+    flex-grow: 1; /* Permite que o parágrafo use o espaço restante */
+    text-align: left; /* Alinha o texto à esquerda dentro do card */
+}
+
+.midia-item .btn-small {
+    align-self: center; /* Centraliza o botão horizontalmente no flex container */
+    flex-shrink: 0; /* Não encolhe */
+}
+
+
+.midia-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+/* FIM NOVA SEÇÃO: NÓS NA MÍDIA */
+
 
 /* Seção Contato - Mobile First */
 .contact-section {
@@ -962,6 +1050,7 @@ footer {
     }
 
     .nav-links a {
+        text-decoration: none;
         color: var(--text-color);
         padding: 10px 0;
         font-size: 1em;
@@ -1071,7 +1160,7 @@ footer {
         box-shadow: var(--hover-shadow);
     }
      .btn-whatsapp:hover {
-        background-color: #1DA851;
+        background-color: #1DA851; /* Se for o botão verde do contato */
         transform: translateY(-5px);
         box-shadow: var(--hover-shadow);
      }
@@ -1160,7 +1249,7 @@ footer {
     .service-item {
          padding: 20px;
          border-radius: 10px;
-         transform: translateY(30px);
+         transform: translateY(30px); /* Para animação */
     }
 
     .service-item:hover {
@@ -1196,6 +1285,13 @@ footer {
     .services-grid .service-item:nth-child(even) {
         transition-delay: 0.2s;
     }
+    .services-grid .service-item:nth-child(3n) { /* Adiciona mais delays para layouts maiores */
+         transition-delay: 0.3s;
+     }
+      .services-grid .service-item:nth-child(4n) {
+         transition-delay: 0.4s;
+     }
+
 
     /* NOVA SEÇÃO: CURSOS - Desktop */
     .courses-grid {
@@ -1206,7 +1302,7 @@ footer {
     .course-item {
          padding: 20px;
          border-radius: 10px;
-         transform: translateY(30px);
+         transform: translateY(30px); /* Para animação */
          cursor: pointer; /* Mantém cursor no item */
     }
 
@@ -1239,6 +1335,9 @@ footer {
     .courses-grid .course-item:nth-child(even) {
         transition-delay: 0.2s;
     }
+     .courses-grid .course-item:nth-child(3n) {
+         transition-delay: 0.3s;
+     }
     /* FIM NOVA SEÇÃO: CURSOS */
 
 
@@ -1251,8 +1350,8 @@ footer {
      .promotion-item {
          padding: 20px;
          border-radius: 10px;
-         transform: translateY(30px);
-         padding-bottom: 20px;
+         transform: translateY(30px); /* Para animação */
+         padding-bottom: 20px; /* Ajuste para garantir espaço para o botão */
      }
 
     .promotion-item:hover {
@@ -1279,7 +1378,7 @@ footer {
 
      .promotion-item p {
         font-size: 1em;
-    }
+     }
 
      .promotions-grid .promotion-item:nth-child(odd) {
         transition-delay: 0.1s;
@@ -1287,6 +1386,9 @@ footer {
     .promotions-grid .promotion-item:nth-child(even) {
         transition-delay: 0.2s;
     }
+     .promotions-grid .promotion-item:nth-child(3n) {
+         transition-delay: 0.3s;
+     }
     /* FIM NOVA SEÇÃO: PROMOÇÕES */
 
 
@@ -1299,7 +1401,7 @@ footer {
      .ebook-item {
          padding: 20px;
          border-radius: 10px;
-         transform: translateY(30px);
+         transform: translateY(30px); /* Para animação */
          cursor: pointer; /* Mantém cursor no item */
      }
 
@@ -1332,21 +1434,24 @@ footer {
      .ebooks-grid .ebook-item:nth-child(even) {
          transition-delay: 0.2s;
      }
+      .ebooks-grid .ebook-item:nth-child(3n) {
+         transition-delay: 0.3s;
+     }
     /* FIM NOVA SEÇÃO: MEUS EBOOKS */
 
 
-    /* SEÇÃO: DEPOIMENTOS - Desktop */
-    .testimonials-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-bottom: 40px;
-    }
+     /* SEÇÃO: DEPOIMENTOS - Desktop */
+     .testimonials-container {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 30px;
+         margin-bottom: 40px;
+     }
 
     .testimonial-item {
         margin-bottom: 0;
         padding: 25px;
-        transform: translateY(30px);
+        transform: translateY(30px); /* Para animação */
     }
 
     .testimonial-item:hover {
@@ -1381,6 +1486,10 @@ footer {
      .testimonials-container .testimonial-item:nth-child(5n) {
          transition-delay: 0.5s;
     }
+     .testimonials-container .testimonial-item:nth-child(6n) {
+         transition-delay: 0.6s;
+    }
+
 
     .btn-container {
         margin-top: 40px; /* Ajustado para Desktop */
@@ -1390,6 +1499,55 @@ footer {
          margin-bottom: 0;
     }
     /* FIM SEÇÃO: DEPOIMENTOS */
+
+
+    /* NOVA SEÇÃO: NÓS NA MÍDIA - Desktop */
+    .midia-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Layout responsivo com itens de no mínimo 300px */
+        gap: 30px; /* Espaçamento entre os itens */
+    }
+
+    .midia-item {
+        padding: 20px;
+        border-radius: 10px;
+         transform: translateY(30px); /* Para animação */
+    }
+
+    .midia-item img {
+        width: 150px; /* Tamanho da imagem no desktop */
+        height: 150px; /* Altura da imagem no desktop */
+        border-radius: 10px; /* Bordas arredondadas */
+        margin-bottom: 15px;
+        border: 4px solid var(--secondary-color); /* Borda colorida */
+    }
+
+    .midia-item h3 {
+        font-size: 1.4em; /* Tamanho do título no desktop */
+    }
+
+    .midia-item p {
+        font-size: 1em; /* Tamanho do parágrafo no desktop */
+        margin-bottom: 20px; /* Espaço entre o texto e o botão */
+    }
+
+    .midia-grid .midia-item:nth-child(odd) {
+        transition-delay: 0.1s;
+    }
+    .midia-grid .midia-item:nth-child(even) {
+        transition-delay: 0.2s;
+    }
+     .midia-grid .midia-item:nth-child(3n) { /* Adiciona mais delays para layouts maiores */
+         transition-delay: 0.3s;
+     }
+     .midia-grid .midia-item:nth-child(4n) {
+         transition-delay: 0.4s;
+     }
+
+    .midia-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+    /* FIM NOVA SEÇÃO: NÓS NA MÍDIA */
 
 
     /* Seção Contato - Desktop */
@@ -1630,6 +1788,50 @@ footer {
          box-shadow: var(--hover-shadow);
      }
     /* FIM NOVA SEÇÃO: MEUS EBOOKS */
+
+     /* NOVA SEÇÃO: NÓS NA MÍDIA - Desktop Grande */
+     .midia-grid {
+         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Layout responsivo com itens de no mínimo 350px */
+         gap: 40px; /* Espaçamento entre os itens */
+     }
+
+     .midia-item {
+         padding: 25px;
+     }
+
+     .midia-item img {
+         width: 180px; /* Tamanho da imagem no desktop grande */
+         height: 180px; /* Altura da imagem no desktop grande */
+         margin-bottom: 20px;
+     }
+
+      .midia-item h3 {
+         font-size: 1.6em; /* Tamanho do título no desktop grande */
+     }
+
+      .midia-item p {
+         font-size: 1.05em; /* Tamanho do parágrafo no desktop grande */
+          margin-bottom: 25px; /* Espaço entre texto e botão */
+     }
+
+     .midia-grid .midia-item:nth-child(odd) {
+         transition-delay: 0.1s;
+     }
+     .midia-grid .midia-item:nth-child(even) {
+         transition-delay: 0.2s;
+     }
+      .midia-grid .midia-item:nth-child(3n) {
+          transition-delay: 0.3s;
+      }
+      .midia-grid .midia-item:nth-child(4n) {
+          transition-delay: 0.4s;
+      }
+
+     .midia-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+     /* FIM NOVA SEÇÃO: NÓS NA MÍDIA */
 
 
      /* SEÇÃO: DEPOIMENTOS - Desktop Grande */
