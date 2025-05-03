@@ -1,33 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // --- URLs e NÚMEROS ---
+    const whatsappNumber = '5521976430017'; // Seu número do WhatsApp
+    const generalHotmartEbooksURL = 'SUA_URL_GERAL_HOTMART_EBOOKS'; // SUBSTITUA PELA URL REAL DA SUA PÁGINA GERAL DE EBOOKS NO HOTMART
+    // --- FIM URLs e NÚMEROS ---
+
+
     // --- CONTROLE DE VISIBILIDADE DA SEÇÃO DE PROMOÇÕES ---
-    // Altere o valor desta variável para 'true' para MOSTRAR as promoções,
-    // ou 'false' para ESCONDER a seção de promoções.
     const showPromotionsSection = true; // Mude para false para desativar
 
     const promotionsSection = document.getElementById('promocoes');
-    const promotionsNavLink = document.querySelector('a[href="#promocoes"]'); // Encontra o link no menu
+    const promotionsNavLink = document.querySelector('a[href="#promocoes"]');
 
-    if (promotionsSection) { // Verifica se a seção existe
+    if (promotionsSection) {
         if (!showPromotionsSection) {
-            // Se a variável for false, adiciona a classe 'hidden' para esconder a seção
             promotionsSection.classList.add('hidden');
             console.log('Seção de Promoções desativada.');
-
-            // Opcional: Esconder também o link no menu de navegação
             if (promotionsNavLink) {
-                promotionsNavLink.parentElement.style.display = 'none'; // Esconde o <li> pai
+                promotionsNavLink.parentElement.style.display = 'none';
             }
-
         } else {
-             // Se a variável for true, garante que a classe 'hidden' seja removida
             promotionsSection.classList.remove('hidden');
-             console.log('Seção de Promoções ativada.');
-
-             // Garante que o link no menu esteja visível
-             if (promotionsNavLink) {
-                 promotionsNavLink.parentElement.style.display = ''; // Remove o estilo display: none
-             }
+            console.log('Seção de Promoções ativada.');
+            if (promotionsNavLink) {
+                promotionsNavLink.parentElement.style.display = '';
+            }
         }
     }
     // --- FIM DO CONTROLE DE VISIBILIDADE ---
@@ -35,51 +32,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Animação inicial da seção Hero após carregar
     const heroSection = document.getElementById('hero');
-    // Adiciona um pequeno delay para garantir que o CSS inicial seja aplicado antes da animação
     setTimeout(() => {
         if (heroSection) {
             heroSection.classList.add('loaded');
         }
-    }, 100); // 100ms delay
+    }, 100);
 
     // Header Dinâmico (mudar sombra ao rolar)
     const header = document.querySelector('header');
+    const headerHeight = header ? header.offsetHeight : 0;
 
     window.addEventListener('scroll', () => {
-        // Adiciona a classe 'scrolled' quando a rolagem for maior que 50px (ou header.offsetHeight se preferir)
-        if (window.scrollY > 50) { // Usar um valor fixo ou header.offsetHeight
+        if (window.scrollY > headerHeight) {
              header.classList.add('scrolled');
         } else {
              header.classList.remove('scrolled');
         }
     });
 
+
     // Menu Hambúrguer
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
     const body = document.body;
-    // Seleciona o elemento <i> que contém o ícone
     const hamburgerIcon = hamburger ? hamburger.querySelector('i') : null;
 
-    // Função para atualizar o ícone do hambúrguer (bars ou times/x)
     function updateHamburgerIcon() {
-        if (!hamburgerIcon) return; // Sai se o elemento do ícone não for encontrado
-
-        // Verifica se o menu de navegação está aberto (pela classe 'open' nos links)
+        if (!hamburgerIcon) return;
         const isMenuOpen = navLinks.classList.contains('open');
 
         if (isMenuOpen) {
-            // Menu está aberto, muda para 'X'
             hamburgerIcon.classList.remove('fa-bars');
-            hamburgerIcon.classList.add('fa-times'); // Use fa-times para o ícone de fechar
-            hamburger.setAttribute('aria-label', 'Fechar menu'); // Atualiza o rótulo de acessibilidade
+            hamburgerIcon.classList.add('fa-times');
+            hamburger.setAttribute('aria-label', 'Fechar menu');
         } else {
-            // Menu está fechado, volta para 'hambúrguer'
             hamburgerIcon.classList.remove('fa-times');
             hamburgerIcon.classList.add('fa-bars');
-            hamburger.setAttribute('aria-label', 'Abrir menu'); // Atualiza o rótulo de acessibilidade
+            hamburger.setAttribute('aria-label', 'Abrir menu');
         }
-         // Opcional: Mantenha a classe 'is-active' no botão se usá-la para outros estilos
         if (isMenuOpen) {
             hamburger.classList.add('is-active');
         } else {
@@ -87,77 +77,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-
-    if (hamburger && navLinks && body && hamburgerIcon) { // Garante que todos os elementos existem
-        // Abrir/Fechar menu ao clicar no hambúrguer
+    if (hamburger && navLinks && body && hamburgerIcon) {
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('open');
-            body.classList.toggle('no-scroll'); // Previne scroll no body
-
-            // Atualiza o estado do ícone DEPOIS de alternar a classe 'open'
+            body.classList.toggle('no-scroll');
             updateHamburgerIcon();
         });
 
-        // Fechar menu ao clicar em um link (para navegação suave)
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                // Verifica se o link clicado NÃO é o link de promoções E se as promoções estão desativadas
-                // Ou se o link clicado é o de promoções E as promoções estão ativadas
-                const isPromotionsLink = link.getAttribute('href') === '#promocoes';
-                 // Fecha o menu se não for o link de promoções (ou se for o de promoções E a seção estiver visível)
-                const shouldCloseMenu = !isPromotionsLink || (isPromotionsLink && showPromotionsSection);
+            link.addEventListener('click', function() {
+                 const targetId = this.getAttribute('href').substring(1);
+                 const isPromotionsLink = targetId === 'promocoes';
+                 const shouldCloseMenu = !isPromotionsLink || (isPromotionsLink && showPromotionsSection);
 
-
-                if (navLinks.classList.contains('open') && shouldCloseMenu) {
-                    // Fecha o menu removendo as classes
+                 if (navLinks.classList.contains('open') && shouldCloseMenu) {
                     navLinks.classList.remove('open');
                     body.classList.remove('no-scroll');
-
-                    // Atualiza o estado do ícone DEPOIS de fechar o menu
                     updateHamburgerIcon();
                 }
             });
         });
 
-        // Opcional: Fechar menu ao redimensionar a janela (se o menu mobile estiver aberto)
         window.addEventListener('resize', () => {
-            // Verifica se a largura da janela é maior que o breakpoint onde o menu hamburguer some no CSS
             if (window.innerWidth > 768) {
                  if (navLinks.classList.contains('open')) {
-                    // Fecha o menu removendo as classes
                     navLinks.classList.remove('open');
                     body.classList.remove('no-scroll');
-
-                    // Atualiza o estado do ícone DEPOIS de fechar o menu
                     updateHamburgerIcon();
                 }
             }
         });
-
-        // Inicializa o estado do ícone ao carregar a página (opcional, mas boa prática)
-        // updateHamburgerIcon(); // Assume que o menu começa fechado, o estado padrão já é fa-bars
     }
 
 
-    // Rolagem Suave para links internos (mantido para outros links #)
+    // Rolagem Suave para links internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
              const targetId = this.getAttribute('href').substring(1);
              const targetElement = document.getElementById(targetId);
+
              const isPromotionsLink = targetId === 'promocoes';
 
-             // Se for o link de promoções E a seção estiver desativada, previne o default e sai.
-             // Isso lida com o link no menu de navegação quando a seção está oculta.
-             if (isPromotionsLink && !showPromotionsSection) {
+             if (targetElement && (!isPromotionsLink || (isPromotionsLink && showPromotionsSection))) {
                  e.preventDefault();
-                 // Não precisa rolar, apenas impede o comportamento padrão do link (#)
-                 return;
-             }
 
-            // Para todos os outros links # ou para o link #promocoes QUANDO visível:
-            e.preventDefault();
-
-            if (targetElement) {
                 const headerOffset = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.scrollY - headerOffset;
@@ -166,40 +129,32 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: offsetPosition,
                     behavior: 'smooth'
                 });
-            }
+             } else if (isPromotionsLink && !showPromotionsSection) {
+                 e.preventDefault();
+             }
         });
     });
 
 
-    // --- NOVA LÓGICA PARA BOTÕES DE PROMOÇÃO WHATSAPP ---
+    // --- LÓGICA PARA BOTÕES DE PROMOÇÃO WHATSAPP ---
     const promoWhatsAppButtons = document.querySelectorAll('.btn-promo-whatsapp');
-    const whatsappNumber = '5521976430017'; // Seu número do WhatsApp
 
     promoWhatsAppButtons.forEach(button => {
         button.addEventListener('click', function(e) {
-            e.preventDefault(); // Impede o comportamento padrão do link (href="javascript:void(0);")
+            e.preventDefault();
 
-            // Encontra o item de promoção pai deste botão
             const promotionItem = this.closest('.promotion-item');
 
             if (promotionItem) {
-                // Encontra o título (h3) dentro do item de promoção
                 const promotionTitleElement = promotionItem.querySelector('h3');
 
                 if (promotionTitleElement) {
-                    const promotionName = promotionTitleElement.textContent.trim(); // Pega o texto do título e remove espaços extras
-
-                    // Constrói a mensagem personalizada
+                    const promotionName = promotionTitleElement.textContent.trim();
                     const baseMessage = 'Olá! Gostaria de agendar a promoção:';
-                    const fullMessage = `${baseMessage} ${promotionName}`; // Combina a mensagem base com o nome da promoção
-
-                    // Codifica a mensagem para uso na URL do WhatsApp
+                    const fullMessage = `${baseMessage} ${promotionName}`;
                     const encodedMessage = encodeURIComponent(fullMessage);
-
-                    // Cria a URL completa do WhatsApp
                     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-                    // Abre a URL no WhatsApp (em uma nova aba)
                     window.open(whatsappURL, '_blank');
                 } else {
                     console.error("Título da promoção (h3) não encontrado no item.", promotionItem);
@@ -209,14 +164,170 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    // --- FIM NOVA LÓGICA ---
+    // --- FIM LÓGICA ---
+
+
+    // --- LÓGICA PARA BOTÕES GERAIS DAS SEÇÕES (Cursos e Ebooks) ---
+    const coursesSectionButton = document.querySelector('.btn-section-courses');
+    const ebooksSectionButton = document.querySelector('.btn-section-ebooks');
+
+    if (coursesSectionButton) {
+        const message = "Olá! Tenho interesse em saber mais sobre os cursos que você oferece.";
+        const encodedMessage = encodeURIComponent(message);
+        coursesSectionButton.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    } else {
+        console.warn("Botão '.btn-section-courses' não encontrado.");
+    }
+
+    if (ebooksSectionButton) {
+        if (generalHotmartEbooksURL && generalHotmartEbooksURL !== 'SUA_URL_GERAL_HOTMART_EBOOKS') {
+             ebooksSectionButton.href = generalHotmartEbooksURL;
+        } else {
+             console.error("URL geral do Hotmart para Ebooks não definida. O botão pode não funcionar.");
+             ebooksSectionButton.removeAttribute('href');
+             // Opcional: Esconde o botão se a URL não estiver configurada
+             // ebooksSectionButton.style.display = 'none';
+        }
+    } else {
+         console.warn("Botão '.btn-section-ebooks' não encontrado.");
+    }
+    // --- FIM LÓGICA BOTÕES GERAIS ---
+
+
+    // --- LÓGICA DO MODAL ---
+    const modal = document.getElementById('myModal');
+    const modalContent = modal ? modal.querySelector('.modal-content') : null;
+    const closeButton = modal ? modal.querySelector('.close-button') : null;
+    const modalImage = modal ? document.getElementById('modal-image') : null;
+    const modalTitle = modal ? document.getElementById('modal-title') : null;
+    const modalDescription = modal ? document.getElementById('modal-description') : null;
+    const modalButton = modal ? document.getElementById('modal-button') : null;
+
+    function openModal(title, description, imageUrl, buttonText, buttonAction, targetUrl) {
+        if (!modal || !modalContent || !modalImage || !modalTitle || !modalDescription || !modalButton) {
+            console.error("Elementos do modal não encontrados.");
+            return;
+        }
+
+        modalTitle.textContent = title;
+        modalDescription.textContent = description;
+        modalImage.src = imageUrl || '';
+        modalImage.alt = title || 'Imagem do Item';
+
+        modalButton.textContent = buttonText;
+        modalButton.setAttribute('target', '_blank');
+        modalButton.classList.remove('btn-modal-whatsapp', 'btn-modal-hotmart');
+
+        modalButton.style.display = '';
+
+        if (buttonAction === 'whatsapp') {
+            modalButton.classList.add('btn-modal-whatsapp');
+            const encodedMessage = encodeURIComponent(`Olá! Tenho interesse no curso: ${title}`);
+            modalButton.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        } else if (buttonAction === 'hotmart') {
+             // Note: Estamos usando targetUrl diretamente aqui, vindo do data attribute do item
+             modalButton.classList.add('btn-modal-hotmart'); // Usa estilo primary por padrão
+             modalButton.href = targetUrl;
+             // Verificação de URL Hotmart movida para o listener para ser mais específica por item
+        } else {
+            modalButton.style.display = 'none';
+            modalButton.href = '#';
+        }
+
+
+        modal.classList.add('open');
+        body.classList.add('no-scroll');
+    }
+
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('open');
+            setTimeout(() => {
+                body.classList.remove('no-scroll');
+            }, 300);
+        }
+    }
+
+    // --- LISTENERS PARA ABRIR MODAL CLICANDO NO LINK INTERNO (.item-details-link) ---
+    document.querySelectorAll('.course-item .item-details-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Previne o comportamento padrão do link (#)
+
+            // Encontra o item pai (.course-item) para pegar os dados
+            const item = this.closest('.course-item');
+            if (!item) {
+                 console.error("Item pai (.course-item) não encontrado para o link.", this);
+                 return;
+            }
+
+            const title = item.querySelector('h3').textContent;
+            const description = item.getAttribute('data-full-description');
+            const imageUrl = item.getAttribute('data-large-image') || item.querySelector('img').src;
+            const buttonText = 'Tenho interesse no curso!';
+            const buttonAction = 'whatsapp';
+
+            openModal(title, description, imageUrl, buttonText, buttonAction);
+        });
+    });
+
+    document.querySelectorAll('.ebook-item .item-details-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Previne o comportamento padrão do link (#)
+
+            // Encontra o item pai (.ebook-item) para pegar os dados
+            const item = this.closest('.ebook-item');
+             if (!item) {
+                 console.error("Item pai (.ebook-item) não encontrado para o link.", this);
+                 return;
+            }
+
+            const title = item.querySelector('h3').textContent;
+            const description = item.getAttribute('data-full-description');
+            const imageUrl = item.getAttribute('data-large-image') || item.querySelector('img').src;
+            const hotmartUrl = item.getAttribute('data-hotmart-url');
+            const buttonText = 'Comprar Ebook na Hotmart!';
+            const buttonAction = 'hotmart';
+
+            // Verifica a URL Hotmart ANTES de tentar abrir o modal com ela configurada
+            if (!hotmartUrl || hotmartUrl === 'SUA_URL_HOTMART_EBOOK1' || hotmartUrl === 'SUA_URL_HOTMART_EBOOK2' || hotmartUrl === 'SUA_URL_GERAL_HOTMART_EBOOKS') {
+                console.error(`URL do Hotmart não configurada corretamente para o ebook "${title}". Data attribute: ${hotmartUrl}`);
+                // Opcional: Mostra uma mensagem para o usuário que a URL não está pronta
+                alert(`Desculpe, a compra deste ebook ainda não está disponível. Por favor, entre em contato para mais informações.`);
+                return; // Sai da função, não abre o modal
+            }
+
+
+            openModal(title, description, imageUrl, buttonText, buttonAction, hotmartUrl);
+        });
+    });
+    // --- FIM LISTENERS PARA ABRIR MODAL ---
+
+
+    // Adiciona listeners para fechar o modal
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+            closeModal();
+        }
+    });
+    // --- FIM LÓGICA DO MODAL ---
 
 
     // Botão Voltar ao Topo
     const backToTopButton = document.getElementById('back-to-top');
 
     window.addEventListener('scroll', () => {
-        // Mostra o botão quando a rolagem for maior que 400px
         if (window.scrollY > 400) {
             backToTopButton.style.display = 'block';
         } else {
@@ -232,28 +343,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Animação Fade-in ao Rolar (IntersectionObserver)
-    // Certifica-se de que este observador também observe os novos elementos .animate-on-scroll
     const elementsToAnimate = document.querySelectorAll('.animate-on-scroll');
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            // Adiciona uma verificação adicional: só anima se o elemento não estiver dentro de uma seção 'hidden'
-            // Isso evita que elementos em seções escondidas tentem animar
             const parentSection = entry.target.closest('.section');
             const isHidden = parentSection && parentSection.classList.contains('hidden');
 
             if (entry.isIntersecting && !isHidden) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Anima apenas uma vez
+                observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1, // Quando 10% do elemento estiver visível
-        rootMargin: '0px 0px -80px 0px' // Começa a observar 80px antes de chegar
+        threshold: 0.1,
+        rootMargin: '0px 0px -80px 0px'
     });
 
     elementsToAnimate.forEach(element => {
-         // Só observe elementos que não estão em uma seção escondida ao carregar
          const parentSection = element.closest('.section');
          const isHidden = parentSection && parentSection.classList.contains('hidden');
          if (!isHidden) {

@@ -8,6 +8,7 @@
     --white: #fff;
     --shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     --hover-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    --dark-overlay: rgba(0, 0, 0, 0.7); /* Cor para o fundo do modal */
 }
 
 /* Reset Básico */
@@ -25,6 +26,7 @@ body {
     overflow-x: hidden;
 }
 
+/* Impede o scroll do body quando o modal está aberto */
 body.no-scroll {
     overflow: hidden;
 }
@@ -80,25 +82,16 @@ nav .container {
 }
 
 .hamburger i {
-    /* A animação de transform aqui pode conflitar com a troca de ícone. */
-    /* Removemos ou ajustamos se causar problemas visuais com o 'X'. */
-    /* transition: transform 0.3s ease; */
-    transition: color 0.3s ease; /* Adiciona transição para a cor se mudar */
+    transition: color 0.3s ease;
 }
-
-/* REMOVIDO: Não precisamos mais girar, apenas trocaremos o ícone */
-/* .hamburger.is-active i {
-    transform: rotate(90deg);
-} */
-
 
 .nav-links {
     list-style: none;
     position: fixed;
-    top: 70px; /* Ajustar com base na altura real do seu header */
+    top: 80px; /* Ajustar com base na altura real do seu header */
     left: 0;
     width: 100%;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 80px); /* Ajustar com base na altura do header */
     background-color: var(--primary-color);
     flex-direction: column;
     align-items: center;
@@ -107,6 +100,7 @@ nav .container {
     transform: translateX(100%);
     display: flex;
     z-index: 1050;
+    overflow-y: auto; /* Permite scroll se os links excederem a altura */
 }
 
 .nav-links.open {
@@ -114,7 +108,7 @@ nav .container {
 }
 
 .nav-links li {
-    margin: 15px 0;
+    margin: 10px 0; /* Ajustei margem para mais links */
     width: 100%;
     text-align: center;
 }
@@ -123,9 +117,9 @@ nav .container {
     text-decoration: none;
     color: var(--white);
     font-weight: 600;
-    padding: 15px 0;
+    padding: 10px 0; /* Ajustei padding */
     display: block;
-    font-size: 1.3em;
+    font-size: 1.2em; /* Ajustei font-size */
     transition: color 0.3s ease;
 }
 
@@ -148,20 +142,18 @@ nav .container {
      background-color: var(--light-bg);
 }
 
-#sobre {
+/* Override background para seções específicas se o nth-of-type não se adequar */
+#sobre,
+#cursos,
+#depoimentos
+{
     background-color: var(--white);
 }
 
-/* Adicionar background para a nova seção se necessário */
-/* Se a seção de promoções for a 4ª (hero, sobre, experiencia, servicos, promocoes),
-   ela será a 5ª seção, que é ímpar, então já terá background light-bg.
-   Se for a 5ª (hero, sobre, experiencia, servicos, promocoes, depoimentos, contato)
-   ela será a 5ª, ímpar, light-bg.
-   Se for a 6ª (hero, sobre, experiencia, servicos, depilacao-laser, promocoes, depoimentos, contato)
-   ela seria par.
-   No seu caso atual (5 seções antes de #promocoes), ela será a 6ª seção e ficará com fundo branco.
-   Para garantir que ela tenha fundo light-bg, você pode adicionar: */
-#promocoes {
+#experiencia,
+#promocoes,
+#ebooks
+{
     background-color: var(--light-bg);
 }
 
@@ -185,6 +177,25 @@ nav .container {
     background-color: var(--secondary-color);
     border-radius: 2px;
 }
+
+/* Novo estilo para o texto de introdução da seção */
+.section-intro-text {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+}
+
+/* Estilo para o wrapper do botão (opcional, mas útil) */
+.btn-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
 
 /* Seção Hero (Início) - Mobile First */
 #hero {
@@ -276,7 +287,6 @@ nav .container {
     border: none;
     cursor: pointer;
     box-shadow: var(--shadow);
-    /* margin-bottom: 25px; - Removido daqui, aplicado específico onde necessário */
 }
 
 .btn-primary:hover, .btn-whatsapp:hover {
@@ -285,14 +295,14 @@ nav .container {
     box-shadow: var(--hover-shadow);
 }
 
+/* Estilo específico para o botão WhatsApp geral */
 .btn-whatsapp {
-     background-color: #25D366;
+     background-color: var(--primary-color);
      box-shadow: var(--shadow);
-     margin-bottom: 25px; /* Aplica margin-bottom apenas no botão whatsapp */
 }
 
 .btn-whatsapp:hover {
-    background-color: #1DA851;
+    background-color: var(--primary-color);
     transform: translateY(-3px);
     box-shadow: var(--hover-shadow);
 }
@@ -303,9 +313,10 @@ nav .container {
 
 /* Novo estilo para botão pequeno, se usar .btn-small */
 .btn-small {
-    padding: 8px 15px; /* Ajuste o padding para o tamanho desejado */
-    font-size: 0.9em; /* Ajuste a fonte */
+    padding: 8px 15px;
+    font-size: 0.9em;
     margin-top: 15px; /* Espaço acima do botão dentro do item */
+    display: inline-block; /* Garante que fique centralizado dentro do item */
 }
 
 
@@ -413,6 +424,7 @@ nav .container {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
+    cursor: pointer; /* Mantém cursor no item */
 }
 
 .service-item.visible {
@@ -425,7 +437,6 @@ nav .container {
 .services-grid .service-item:nth-child(even) {
     transition-delay: 0s;
 }
-
 
 .service-item img {
     width: 150px;
@@ -456,11 +467,76 @@ nav .container {
     box-shadow: var(--hover-shadow);
 }
 
+/* NOVA SEÇÃO: CURSOS - Mobile First */
+.courses-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     gap: 20px;
+     /* Removido margin-bottom aqui, o btn-container abaixo lida com o espaçamento */
+}
+
+.course-item {
+     background-color: var(--white);
+     padding: 15px;
+     border-radius: 8px;
+     box-shadow: var(--shadow);
+     text-align: center;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     opacity: 0;
+     transform: translateY(20px);
+     cursor: pointer; /* Mantém cursor no item */
+     /* Removido margin-bottom, a grade gap e btn-container abaixo lidam com espaçamento */
+}
+
+.course-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.courses-grid .course-item:nth-child(odd),
+.courses-grid .course-item:nth-child(even) {
+    transition-delay: 0s;
+}
+
+.course-item img {
+     width: 120px;
+     height: 120px;
+     border-radius: 8px;
+     object-fit: cover;
+     margin-bottom: 10px;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     box-shadow: var(--shadow);
+     border: 3px solid var(--secondary-color);
+}
+
+.course-item h3 {
+     font-size: 1.2em;
+     color: var(--primary-color);
+     margin-bottom: 8px;
+}
+
+.course-item p {
+     font-size: 0.95em;
+     color: var(--text-color);
+      /* Espaço entre o texto e o novo link */
+     margin-bottom: 15px;
+}
+
+/* O link dentro do item usa .btn-small e já tem margin-top */
+
+
+.course-item:hover {
+     transform: translateY(-5px);
+     box-shadow: var(--hover-shadow);
+}
+/* FIM NOVA SEÇÃO: CURSOS */
+
 
 /* NOVA SEÇÃO: PROMOÇÕES - Mobile First */
 .promotions-section {
-    /* Background já definido acima se necessário, ou depende de nth-of-type(odd) */
-    /* background-color: var(--light-bg); */
     text-align: center;
 }
 
@@ -479,7 +555,6 @@ nav .container {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
-    /* Adiciona espaço inferior se tiver botão dentro */
     padding-bottom: 25px;
 }
 
@@ -491,15 +566,13 @@ nav .container {
 
 .promotions-grid .promotion-item:nth-child(odd),
 .promotions-grid .promotion-item:nth-child(even) {
-    transition-delay: 0s; /* Resetar delay para animação individual */
+    transition-delay: 0s;
 }
 
 .promotion-item img {
-    width: 120px; /* Tamanho um pouco menor para imagem/ícone da promo */
+    width: 120px;
     height: 120px;
-    /* Pode ser quadrado ou redondo, dependendo da sua imagem */
-    /* border-radius: 50%; */
-    border-radius: 8px; /* Use border-radius igual ao item */
+    border-radius: 8px;
     object-fit: cover;
     margin-bottom: 10px;
     display: block;
@@ -531,20 +604,84 @@ nav .container {
 }
 /* FIM NOVA SEÇÃO: PROMOÇÕES */
 
+/* NOVA SEÇÃO: MEUS EBOOKS - Mobile First */
+.ebooks-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     gap: 20px;
+     /* Removido margin-bottom aqui */
+}
+
+.ebook-item {
+     background-color: var(--white);
+     padding: 15px;
+     border-radius: 8px;
+     box-shadow: var(--shadow);
+     text-align: center;
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     opacity: 0;
+     transform: translateY(20px);
+     cursor: pointer; /* Mantém cursor no item */
+     /* Removido margin-bottom */
+}
+
+.ebook-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.ebooks-grid .ebook-item:nth-child(odd),
+.ebooks-grid .ebook-item:nth-child(even) {
+    transition-delay: 0s;
+}
+
+.ebook-item img {
+     width: 120px;
+     height: 120px;
+     border-radius: 8px;
+     object-fit: cover;
+     margin-bottom: 10px;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     box-shadow: var(--shadow);
+     border: 3px solid var(--secondary-color);
+}
+
+.ebook-item h3 {
+     font-size: 1.2em;
+     color: var(--primary-color);
+     margin-bottom: 8px;
+}
+
+.ebook-item p {
+     font-size: 0.95em;
+     color: var(--text-color);
+      /* Espaço entre o texto e o novo link */
+     margin-bottom: 15px;
+}
+
+/* O link dentro do item usa .btn-small e já tem margin-top */
+
+.ebook-item:hover {
+     transform: translateY(-5px);
+     box-shadow: var(--hover-shadow);
+}
+/* FIM NOVA SEÇÃO: MEUS EBOOKS */
+
 
 /* SEÇÃO: DEPOIMENTOS - Mobile First */
 .testimonials-section {
-     /* background-color: var(--light-bg); - Pode ser ímpar ou par */
-    text-align: center; /* Garante que o botão Saiba Mais seja centralizado */
+    text-align: center;
 }
 
 .testimonials-container {
-    /* No mobile, os itens são blocos por padrão e vão empilhar */
-    margin-bottom: 30px; /* Adiciona espaço entre os depoimentos e o botão */
+    margin-bottom: 30px;
 }
 
 .testimonial-item {
-    background-color: var(--white);
+    background-color: var(--light-bg);
     padding: 20px;
     border-radius: 8px;
     box-shadow: var(--shadow);
@@ -583,16 +720,13 @@ nav .container {
     box-shadow: var(--hover-shadow);
 }
 
-/* Estilo para o wrapper do botão (opcional, mas útil) */
 .btn-container {
-    text-align: center; /* Garante centralização se o botão for inline-block */
-    margin-top: 20px; /* Espaço acima do botão no mobile */
+    text-align: center;
+    margin-top: 30px; /* Ajustado para Mobile */
 }
 
-/* Estilo específico para o botão Saiba Mais */
 .btn-view-more {
     /* Inherits styles from .btn-primary */
-    /* No extra margin-top needed here because of .btn-container margin-top */
 }
 /* FIM SEÇÃO: DEPOIMENTOS */
 
@@ -619,12 +753,11 @@ footer {
 
 .footer-content-wrapper {
     width: 100%;
-    /* No mobile, os itens são blocos por padrão e se empilham */
 }
 
 .footer-social-links {
     margin-top: 0;
-    margin-bottom: 15px; /* Espaço ABAIXO dos ícones para separar do texto no mobile */
+    margin-bottom: 15px;
     font-size: 2em;
     padding: 0;
 }
@@ -641,7 +774,7 @@ footer {
     text-decoration: none;
     transition: color 0.3s ease, transform 0.3s ease;
     display: inline-block;
-    font-size: 1em; /* Controlado pelo font-size do pai (.footer-social-links) */
+    font-size: 1em;
 }
 
 .social-icon:hover {
@@ -676,6 +809,107 @@ footer {
     box-shadow: var(--hover-shadow);
 }
 
+/* --- ESTILOS DO MODAL --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--dark-overlay);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.open {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 90%;
+    width: 500px;
+    position: relative;
+    box-shadow: var(--hover-shadow);
+    text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal-overlay.open .modal-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.modal-image-container {
+    margin-bottom: 20px;
+}
+
+.modal-image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    border: 3px solid var(--secondary-color);
+}
+
+.modal-content h3 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: var(--accent-color);
+}
+
+/* Estilos específicos para os botões dentro do modal (herdam de btn-primary) */
+#modal-button {
+    display: inline-block;
+    margin-top: 0;
+}
+
+.btn-modal-whatsapp {
+    background-color: #25D366;
+    color: var(--white);
+}
+.btn-modal-whatsapp:hover {
+    background-color: #1DA851;
+}
+/* .btn-modal-hotmart uses .btn-primary by default */
+
+/* --- FIM ESTILOS DO MODAL --- */
+
 
 /* =================================== */
 /* Media Queries (Desktop) */
@@ -703,7 +937,7 @@ footer {
     }
 
     .hamburger {
-        display: none; /* Oculta o hambúrguer no desktop */
+        display: none;
     }
 
     .nav-links {
@@ -715,12 +949,13 @@ footer {
         padding: 0;
         height: auto;
         width: auto;
-        display: flex; /* Garante que os links apareçam no desktop */
+        display: flex;
         z-index: auto;
+        overflow-y: visible;
     }
 
     .nav-links li {
-        margin-left: 30px;
+        margin-left: 20px;
         margin-top: 0;
         width: auto;
         text-align: left;
@@ -729,7 +964,7 @@ footer {
     .nav-links a {
         color: var(--text-color);
         padding: 10px 0;
-        font-size: 1.1em;
+        font-size: 1em;
         display: inline-block;
         position: relative;
     }
@@ -769,6 +1004,18 @@ footer {
         width: 80px;
         height: 4px;
     }
+
+    .section-intro-text {
+         font-size: 1.2em;
+         margin-bottom: 50px;
+         padding: 0;
+    }
+
+    /* Estilo para o wrapper do botão (opcional, mas útil) - Desktop */
+    .btn-container {
+        margin-top: 40px;
+    }
+
 
     /* Seção Hero - Desktop */
     #hero {
@@ -815,7 +1062,7 @@ footer {
         padding: 15px 30px;
         border-radius: 8px;
         font-size: 1.1em;
-        margin-bottom: 30px; /* Aplicado globalmente aqui para botões em seções */
+        margin-bottom: 0;
     }
 
     .btn-primary:hover, .btn-whatsapp:hover {
@@ -829,11 +1076,11 @@ footer {
         box-shadow: var(--hover-shadow);
      }
 
-    /* Novo estilo para botão pequeno, se usar .btn-small - Desktop */
+    /* Novo estilo para botão pequeno, se usar .btn-small */
      .btn-small {
-        padding: 10px 20px; /* Ajuste para desktop */
-        font-size: 1em; /* Ajuste para desktop */
-        margin-top: 20px; /* Espaço acima do botão dentro do item - Desktop */
+        padding: 10px 20px;
+        font-size: 1em;
+        margin-top: 20px; /* Espaço acima do botão dentro do item */
     }
 
 
@@ -919,6 +1166,7 @@ footer {
     .service-item:hover {
          transform: translateY(-8px);
          box-shadow: var(--hover-shadow);
+         cursor: pointer;
      }
 
     .service-item img {
@@ -949,6 +1197,51 @@ footer {
         transition-delay: 0.2s;
     }
 
+    /* NOVA SEÇÃO: CURSOS - Desktop */
+    .courses-grid {
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 30px;
+    }
+
+    .course-item {
+         padding: 20px;
+         border-radius: 10px;
+         transform: translateY(30px);
+         cursor: pointer; /* Mantém cursor no item */
+    }
+
+    .course-item img {
+         width: 150px;
+         height: 150px;
+         border-radius: 10px;
+         margin-bottom: 15px;
+         border: 4px solid var(--secondary-color);
+         box-shadow: var(--shadow);
+    }
+
+     .course-item h3 {
+        font-size: 1.4em;
+    }
+
+     .course-item p {
+        font-size: 1em;
+        margin-bottom: 20px; /* Espaço entre texto e link em desktop */
+    }
+
+     .course-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+
+     .courses-grid .course-item:nth-child(odd) {
+        transition-delay: 0.1s;
+    }
+    .courses-grid .course-item:nth-child(even) {
+        transition-delay: 0.2s;
+    }
+    /* FIM NOVA SEÇÃO: CURSOS */
+
+
     /* NOVA SEÇÃO: PROMOÇÕES - Desktop */
     .promotions-grid {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -959,7 +1252,6 @@ footer {
          padding: 20px;
          border-radius: 10px;
          transform: translateY(30px);
-         /* Remove ou ajusta padding-bottom se o botão tiver margem superior suficiente */
          padding-bottom: 20px;
      }
 
@@ -969,13 +1261,16 @@ footer {
      }
 
     .promotion-item img {
-         width: 150px; /* Tamanho ajustado para desktop */
+         width: 150px;
          height: 150px;
-         /* border-radius: 50%; */
          border-radius: 10px;
+         object-fit: cover;
          margin-bottom: 15px;
-         border: 4px solid var(--secondary-color);
+         display: block;
+         margin-left: auto;
+         margin-right: auto;
          box-shadow: var(--shadow);
+         border: 3px solid var(--secondary-color);
     }
 
      .promotion-item h3 {
@@ -992,7 +1287,52 @@ footer {
     .promotions-grid .promotion-item:nth-child(even) {
         transition-delay: 0.2s;
     }
-    /* FIM NOVA SEÇÃO: PROMOÇÕES - Desktop */
+    /* FIM NOVA SEÇÃO: PROMOÇÕES */
+
+
+    /* NOVA SEÇÃO: MEUS EBOOKS - Desktop */
+     .ebooks-grid {
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+         gap: 30px;
+     }
+
+     .ebook-item {
+         padding: 20px;
+         border-radius: 10px;
+         transform: translateY(30px);
+         cursor: pointer; /* Mantém cursor no item */
+     }
+
+     .ebook-item img {
+         width: 150px;
+         height: 150px;
+         border-radius: 10px;
+         margin-bottom: 15px;
+         border: 4px solid var(--secondary-color);
+         box-shadow: var(--shadow);
+     }
+
+      .ebook-item h3 {
+         font-size: 1.4em;
+     }
+
+      .ebook-item p {
+         font-size: 1em;
+         margin-bottom: 20px; /* Espaço entre texto e link em desktop */
+     }
+
+      .ebook-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+
+      .ebooks-grid .ebook-item:nth-child(odd) {
+         transition-delay: 0.1s;
+     }
+     .ebooks-grid .ebook-item:nth-child(even) {
+         transition-delay: 0.2s;
+     }
+    /* FIM NOVA SEÇÃO: MEUS EBOOKS */
 
 
     /* SEÇÃO: DEPOIMENTOS - Desktop */
@@ -1000,7 +1340,7 @@ footer {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
-        margin-bottom: 40px; /* Aumenta o espaço entre grid e botão no desktop */
+        margin-bottom: 40px;
     }
 
     .testimonial-item {
@@ -1043,14 +1383,11 @@ footer {
     }
 
     .btn-container {
-        text-align: center; /* Garante centralização */
-        margin-top: 0; /* Remove margin-top do mobile, já que a margin do container acima lida com isso */
+        margin-top: 40px; /* Ajustado para Desktop */
     }
+
     .btn-view-more {
-        /* Inherits styles from .btn-primary */
-        /* No extra margin-top needed here because of testimonials-container margin-bottom */
-        /* Adicione margem inferior se precisar espaço entre este botão e o próximo elemento (contato) */
-         margin-bottom: 0; /* Garante que o botão não adicione margem extra abaixo, o padding da section cuida disso */
+         margin-bottom: 0;
     }
     /* FIM SEÇÃO: DEPOIMENTOS */
 
@@ -1111,6 +1448,37 @@ footer {
         color: var(--secondary-color);
         transform: scale(1.2);
     }
+
+    /* --- ESTILOS DO MODAL (Desktop) --- */
+    .modal-content {
+        max-width: 600px;
+        padding: 40px;
+    }
+
+    .modal-image-container img {
+         max-width: 200px;
+         height: 200px;
+         border-radius: 8px;
+         object-fit: cover;
+         border: 4px solid var(--secondary-color);
+     }
+
+     .modal-content h3 {
+         font-size: 1.8em;
+         margin-bottom: 20px;
+     }
+
+     .modal-content p {
+         font-size: 1.1em;
+         margin-bottom: 30px;
+     }
+
+     .close-button {
+         font-size: 2.5em;
+         top: 20px;
+         right: 20px;
+     }
+    /* --- FIM ESTILOS DO MODAL (Desktop) --- */
 }
 
 /* Estilos para Telas Maiores que Tablet (min-width 993px) */
@@ -1127,6 +1495,17 @@ footer {
         font-size: 3em;
         margin-bottom: 60px;
     }
+
+    .section-intro-text {
+         font-size: 1.3em;
+         margin-bottom: 60px;
+    }
+
+    /* Estilo para o wrapper do botão (opcional, mas útil) - Desktop Grande */
+    .btn-container {
+        margin-top: 50px;
+    }
+
 
     /* Seção Serviços - Desktop Grande */
      .services-grid {
@@ -1152,6 +1531,40 @@ footer {
         font-size: 1.05em;
     }
 
+
+    /* NOVA SEÇÃO: CURSOS - Desktop Grande */
+     .courses-grid {
+         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+         gap: 40px;
+     }
+
+     .course-item {
+         padding: 25px;
+         cursor: pointer; /* Mantém cursor no item */
+     }
+
+     .course-item img {
+         width: 180px;
+         height: 180px;
+         margin-bottom: 20px;
+     }
+
+      .course-item h3 {
+         font-size: 1.6em;
+     }
+
+      .course-item p {
+         font-size: 1.05em;
+          margin-bottom: 25px; /* Espaço entre texto e link em desktop grande */
+     }
+
+      .course-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+    /* FIM NOVA SEÇÃO: CURSOS */
+
+
      /* NOVA SEÇÃO: PROMOÇÕES - Desktop Grande */
       .promotions-grid {
          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1160,11 +1573,11 @@ footer {
 
      .promotion-item {
          padding: 25px;
-         padding-bottom: 25px; /* Mantém o padding-bottom mesmo com botão */
+         padding-bottom: 25px;
      }
 
       .promotion-item img {
-         width: 180px; /* Tamanho ajustado para desktop grande */
+         width: 180px;
          height: 180px;
          margin-bottom: 20px;
      }
@@ -1178,19 +1591,52 @@ footer {
     }
 
      .btn-small {
-        padding: 12px 25px; /* Ajuste para desktop grande */
-        font-size: 1.05em; /* Ajuste para desktop grande */
-        margin-top: 25px; /* Espaço acima do botão dentro do item - Desktop Grande */
+        padding: 12px 25px;
+        font-size: 1.05em;
+        margin-top: 25px; /* Espaço acima do botão dentro do item */
      }
 
-     /* FIM NOVA SEÇÃO: PROMOÇÕES - Desktop Grande */
+     /* FIM NOVA SEÇÃO: PROMOÇÕES */
+
+
+    /* NOVA SEÇÃO: MEUS EBOOKS - Desktop Grande */
+     .ebooks-grid {
+         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+         gap: 40px;
+     }
+
+     .ebook-item {
+         padding: 25px;
+         cursor: pointer; /* Mantém cursor no item */
+     }
+
+     .ebook-item img {
+         width: 180px;
+         height: 180px;
+         margin-bottom: 20px;
+     }
+
+      .ebook-item h3 {
+         font-size: 1.6em;
+     }
+
+      .ebook-item p {
+         font-size: 1.05em;
+         margin-bottom: 25px; /* Espaço entre texto e link em desktop grande */
+     }
+
+      .ebook-item:hover {
+         transform: translateY(-8px);
+         box-shadow: var(--hover-shadow);
+     }
+    /* FIM NOVA SEÇÃO: MEUS EBOOKS */
 
 
      /* SEÇÃO: DEPOIMENTOS - Desktop Grande */
      .testimonials-container {
          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
          gap: 40px;
-         margin-bottom: 50px; /* Aumenta ainda mais o espaço entre grid e botão */
+         margin-bottom: 50px;
      }
 
     .testimonial-item {
@@ -1202,9 +1648,9 @@ footer {
     }
 
      .testimonial-author {
-         font-size: 1.05em;
+        font-size: 1.05em;
      }
-     /* FIM SEÇÃO: DEPOIMENTOS - Desktop Grande */
+     /* FIM SEÇÃO: DEPOIMENTOS */
 
 
      /* Seção Contato - Desktop Grande */

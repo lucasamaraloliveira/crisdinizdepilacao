@@ -12,8 +12,10 @@
     <!-- CAMPO PARA ALTERAR O FAVICON -->
     <!-- Você deve substituir 'caminho/para/seu/favicon.ico' ou 'caminho/para/seu/favicon.png' -->
     <!-- Recomendado ter formatos .ico para compatibilidade ampla e .png para navegadores modernos -->
-    <link rel="icon" href="caminho/para/seu/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="caminho/para/seu/favicon.png" type="image/png">
+    <!-- <link rel="icon" href="caminho/para/seu/favicon.ico" type="image/x-icon"> -->
+    <!-- <link rel="icon" href="caminho/para/seu/favicon.png" type="image/png"> -->
+     <!-- Usando o favicon da logo.svg que já existe -->
+     <link rel="icon" href="img/logo.svg" type="image/svg+xml">
     <!-- Você pode usar um gerador de favicon online para criar esses arquivos -->
     <!-- FIM DO CAMPO FAVICON -->
 
@@ -34,7 +36,9 @@
                     <li><a href="#sobre">Sobre</a></li>
                     <li><a href="#experiencia">Experiência</a></li>
                     <li><a href="#servicos">Serviços</a></li>
-                    <!-- Adicionar link para Promoções aqui -->
+                    <!-- Adicionar links para Cursos, Promoções e Ebooks aqui -->
+                     <li><a href="#cursos">Cursos</a></li> <!-- Novo link -->
+                     <li><a href="#ebooks">Ebooks</a></li> <!-- Novo link -->
                     <li><a href="#promocoes">Promoções</a></li>
                     <li><a href="#depoimentos">Depoimentos</a></li>
                     <li><a href="#contato">Contato</a></li>
@@ -46,12 +50,12 @@
     <section id="hero" class="section hero-section">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-text">
+                <div class="hero-text animate-on-scroll">
                     <h1>Cuidados Estéticos</h1>
                     <p>Cuidar da pele não é custo<br>É investimento!</p>
                     <a href="#contato" class="btn-primary">Agende seu atendimento</a>
                 </div>
-                <div class="hero-image">
+                <div class="hero-image animate-on-scroll">
                     <img src="img/cris.png" alt="Cris Diniz">
                 </div>
             </div>
@@ -60,15 +64,15 @@
 
     <section id="sobre" class="section about-section">
         <div class="container">
-            <h2 class="section-title">Sobre Mim</h2>
+            <h2 class="section-title animate-on-scroll">Sobre Mim</h2>
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text animate-on-scroll">
                     <p>Olá! Prazer, sou Cristiane, conhecida carinhosamente como Cris Diniz.</p>
                     <p>Com mais de 10 anos de dedicação à área da beleza, minha paixão é ajudar você a transformar e elevar sua autoestima através da Epilação, do Designer de Sobrancelhas, da Massagem Terapêutica Humanizada, dos Tratamentos com Alta Frequência e do Skin Care.</p>
                     <p>Em cada atendimento, meu objetivo é proporcionar praticidade ao seu dia a dia, segurança durante todo o seu atendimento e um momento de total relaxamento para você.</p>
                     <p>Acredito que o conhecimento é tudo e ninguém tira de você!</p>
                 </div>
-                 <div class="about-image">
+                 <div class="about-image animate-on-scroll">
                     <img src="img/crissobre2.png" alt="Foto de Cris Diniz">
                  </div>
             </div>
@@ -77,7 +81,7 @@
 
     <section id="experiencia" class="section experience-section">
         <div class="container">
-            <h2 class="section-title">Minha Trajetória e Expertise</h2>
+            <h2 class="section-title animate-on-scroll">Minha Trajetória e Expertise</h2>
             <div class="experience-content">
                  <ul class="experience-list animate-on-scroll">
                     <li><i class="fas fa-check-circle"></i> Mais de 10 anos de experiência comprovada no mercado de beleza.</li>
@@ -91,7 +95,7 @@
 
     <section id="servicos" class="section services-section">
         <div class="container">
-            <h2 class="section-title">Nossos Serviços</h2>
+            <h2 class="section-title animate-on-scroll">Nossos Serviços</h2>
             <div class="services-grid">
                 <div class="service-item animate-on-scroll">
                     <img src="img/epilacao.svg" alt="Epilação com Cera">
@@ -127,18 +131,102 @@
         </div>
     </section>
 
+    <!-- NOVA SEÇÃO: CURSOS -->
+    <section id="cursos" class="section courses-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Meus Cursos</h2>
+            <p class="section-intro-text animate-on-scroll">Invista em você e no seu futuro! Aprenda técnicas que transformam vidas e aumentam a autoestima. Clique para saber mais sobre cada curso e dar o primeiro passo na sua nova carreira ou aprimorar suas habilidades.</p>
+            <div class="courses-grid">
+
+                <!-- Exemplo de Item de Curso 1 -->
+                <div class="course-item animate-on-scroll"
+                     data-course-name="Epilação com Cera"
+                     data-full-description="Aprenda todas as técnicas de epilação com cera quente e fria, biossegurança, atendimento ao cliente e como montar seu próprio negócio. Curso completo com teoria e prática."
+                     data-large-image="img/epilacaoceracurso.png"> <!-- Substitua por imagem real do curso -->
+                    <img src="img/epilacaoceracurso.png" alt="Curso de Epilação"> <!-- Substitua por imagem real do curso -->
+                    <h3>Epilação com Cera</h3>
+                    <p>Torne-se especialista em epilação com cera e transforme vidas através da beleza.</p>
+                    <!-- NOVO LINK PARA ABRIR MODAL -->
+                    <a href="#" class="item-details-link btn-primary btn-small btn-whatsapp animate-on-scroll">
+                        <i class="fab fa-whatsapp"></i> Saiba Mais
+                     </a>
+                </div>
+
+                <!-- Exemplo de Item de Curso 2 -->
+                 <div class="course-item animate-on-scroll"
+                      data-course-name="Design de Sobrancelhas"
+                      data-full-description="Torne-se especialista em design de sobrancelhas, aprendendo mapeamento facial, técnicas de medição, modelagem e correção. Inclui henna e visagismo."
+                      data-large-image="img/designsombrancelhacurso.png"> <!-- Substitua por imagem real do curso -->
+                     <img src="img/designsombrancelhacurso.png" alt="Curso de Design de Sobrancelhas"> <!-- Substitua por imagem real do curso -->
+                     <h3>Design de Sobrancelhas</h3>
+                     <p>Crie olhares marcantes e valorize a beleza natural com design personalizado.</p>
+                     <!-- NOVO LINK PARA ABRIR MODAL -->
+                     <a href="#" class="item-details-link btn-primary btn-small btn-whatsapp animate-on-scroll">
+                        <i class="fab fa-whatsapp"></i> Saiba Mais
+                     </a>
+                 </div>
+
+                 <!-- Adicione mais divs .course-item aqui para outros cursos -->
+                <div class="course-item animate-on-scroll"
+                     data-course-name="Skincare Profissional"
+                     data-full-description="Curso avançado sobre cuidados com a pele, incluindo análise de diferentes tipos de pele, rotinas de skincare, limpeza de pele, e uso de produtos e equipamentos profissionais."
+                     data-large-image="img/skincarecurso.png"> <!-- Substitua por imagem real do curso -->
+                    <img src="img/skincarecurso.png" alt="Curso de Skincare Profissional"> <!-- Substitua por imagem real do curso -->
+                    <h3>Skincare Profissional</h3>
+                    <p>Domine os segredos para uma pele saudável e radiante e ofereça os melhores tratamentos.</p>
+                    <!-- NOVO LINK PARA ABRIR MODAL -->
+                    <a href="#" class="item-details-link btn-primary btn-small btn-whatsapp animate-on-scroll">
+                        <i class="fab fa-whatsapp"></i> Saiba Mais
+                     </a>
+                </div>
+
+
+            </div>
+             <!-- Botão geral para cursos -->
+            <div class="btn-container animate-on-scroll">
+                 
+             </div>
+        </div>
+    </section>
+    <!-- FIM NOVA SEÇÃO: CURSOS -->
+
+     <!-- NOVA SEÇÃO: MEUS EBOOKS -->
+     <section id="ebooks" class="section ebooks-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Meus Ebooks</h2>
+            <p class="section-intro-text animate-on-scroll">Aprenda no seu ritmo, de onde estiver! Meus ebooks reúnem conhecimento prático e direto para você se aprofundar no universo da beleza e cuidados. Clique para conhecer e adquirir o seu!</p>
+            <div class="ebooks-grid">
+
+                <!-- Exemplo de Item de Ebook 1 -->
+                <div class="ebook-item animate-on-scroll"
+                     data-ebook-name="Guia Essencial de Epilação"
+                     data-full-description="Este guia completo aborda desde a história da epilação até as técnicas mais modernas, passando por biossegurança, tipos de cera e cuidados pós-epilação. Ideal para iniciantes e profissionais que desejam reciclar conhecimentos."
+                     data-large-image="img/capaebook.webp" 
+                     data-hotmart-url="https://hotmart.com/pt-br/marketplace/produtos/brilhe-na-depilacao-o-segredo-revelado-no-ebook-da-cris-diniz/P92563227P?fbclid=PAQ0xDSwKCS1lleHRuA2FlbQIxMQABp2v5ffEySUVwo5USgTt99RGykwcwZ2lJMIIwIjRpHxHOeKWzudWQDx6_6sai_aem_DSDFyYbl4ERnpxSV6iOrQQ"> <!-- SUBSTITUA PELA URL REAL DO HOTMART -->
+                    <img src="img/capaebook.webp"" alt="Capa Ebook Epilação"> <!-- Substitua por capa real do ebook -->
+                    <h3>Guia Essencial de Epilação</h3>
+                    <p>Tudo que você precisa saber para se tornar uma(o) especialista em epilação.</p>
+                     <!-- NOVO LINK PARA ABRIR MODAL -->
+                     <a href="#" class="item-details-link btn-primary btn-small btn-whatsapp animate-on-scroll">
+                        <i class="fab fa-whatsapp"></i> Ver detalhes
+                     </a>
+                </div>
+
+    </section>
+     <!-- FIM NOVA SEÇÃO: MEUS EBOOKS -->
+
     <!-- NOVA SEÇÃO: PROMOÇÕES -->
     <!-- Adicionada a classe 'promotions-toggleable' para controle via JS -->
     <section id="promocoes" class="section promotions-section promotions-toggleable">
         <div class="container">
-            <h2 class="section-title">Promoções Especiais</h2>
+            <h2 class="section-title animate-on-scroll">Promoções Especiais</h2>
             <div class="promotions-grid">
                 <!-- Exemplo de Item de Promoção 1 -->
                 <!-- Adicionada a classe 'animate-on-scroll' para animação existente -->
                 <div class="promotion-item animate-on-scroll">
                     <!-- Usar imagem/ícone relevante para a promoção -->
                     <!-- Substitua 'img/promo-placeholder.png' pela imagem da sua promoção -->
-                    <img src="img/diadasmaes.png" alt="Promoção 1">
+                    <img src="img/diadasmaes.png" alt="Promoção Semana das Mães">
                     <h3>Semana das Mães: Cuide-se e Concorra!</h3> <!-- Este texto será usado na mensagem -->
                     <p>Só até domingo! Faça qualquer atendimento (<b>Depilação, sobrancelha, massagem, relaxante humanizada, skincare, renovação podal</b>) e entre no sorteio de um prêmio especial para você e sua mãe. Aproveite antes que acabe!</p>
                     <!-- Botão para agendar esta promoção específica -->
@@ -146,23 +234,20 @@
                     <a href="javascript:void(0);" class="btn-primary btn-small btn-promo-whatsapp">Agendar Promo</a>
                 </div>
 
-
                 <!-- Adicione mais divs .promotion-item aqui para outras promoções -->
 
             </div>
-            <!-- Opcional: Botão para "Ver Todas as Promoções" se houver muitas -->
-            <!-- <div class="btn-container">
-                 <a href="#" class="btn-primary">Ver Todas</a>
-            </div> -->
         </div>
     </section>
     <!-- FIM NOVA SEÇÃO: PROMOÇÕES -->
+
+   
 
 
     <!-- SEÇÃO: DEPOIMENTOS -->
     <section id="depoimentos" class="section testimonials-section">
         <div class="container">
-            <h2 class="section-title">Depoimentos de Clientes</h2>
+            <h2 class="section-title animate-on-scroll">Depoimentos de Clientes</h2>
             <div class="testimonials-container">
                 <!-- Depoimento 1 -->
                 <div class="testimonial-item animate-on-scroll">
@@ -177,26 +262,26 @@
                 <!-- Depoimento 3 -->
                  <div class="testimonial-item animate-on-scroll">
                     <p class="testimonial-text">"Uma pessoa maravilhosa que tive o prazer de conhecer, me ensinou muito. Quero novamente fazer um outro curso com ela!"</p>
-                    <p class="testimonial-author">Luana Rodrigues</p> <!-- Ajustado nome -->
+                    <p class="testimonial-author">- Luana Rodrigues</p> <!-- Ajustado nome -->
                 </div>
                  <!-- Depoimento 4 -->
                  <div class="testimonial-item animate-on-scroll">
-                    <p class="testimonial-text">"A melhor como professora e muita mais como pessoa ,ensina super bem e com uma simpatia absurda , adoro as aulas dela e aprendo muito ,muito atenciosa ,uma profissional excelente!"</p>
-                    <p class="testimonial-author">Letícia Carnelutti</p> <!-- Ajustado nome -->
+                    <p class="testimonial-text">"A melhor como professora e muita mais como pessoa ,ensina super bem e com uma simpatia absurda , adoro as aulas dela e aprendo muito ,muito atenciosa ,una profissional excelente!"</p>
+                    <p class="testimonial-author">- Letícia Carnelutti</p> <!-- Ajustado nome -->
                 </div>
                  <!-- Depoimento 5 -->
                  <div class="testimonial-item animate-on-scroll">
                     <p class="testimonial-text">"Uma profissional excelente! Super dedicada, atenciosa, sempre paciente. Adorei aprender com você Cris, tenha sucesso sempre e obrigada! 🥰"</p>
-                    <p class="testimonial-author">Ingrid Ludimila</p> <!-- Ajustado nome -->
+                    <p class="testimonial-author">- Ingrid Ludimila</p> <!-- Ajustado nome -->
                 </div>
                 <!-- Depoimento 6 -->
                 <div class="testimonial-item animate-on-scroll">
-                    <p class="testimonial-text">"Excelente professional do ramo, muito prestativa e os preços são ótimos. Minha noiva sempre busca fazer o serviço com essa excelente profissional. Parabéns pelo serviço prestado!!!"</p>
-                    <p class="testimonial-author">Lucas Silva</p> <!-- Ajustado nome -->
+                    <p class="testimonial-text">"Excelente profissional do ramo, muito prestativa e os preços são ótimos. Minha noiva sempre busca fazer o serviço com essa excelente profissional. Parabéns pelo serviço prestado!!!"</p>
+                    <p class="testimonial-author">- Lucas Silva</p> <!-- Ajustado nome -->
                 </div>
             </div>
             <!-- Botão Saiba Mais (anteriormente Ver Mais Depoimentos) ajustado AQUI -->
-            <div class="btn-container">
+            <div class="btn-container animate-on-scroll">
                  <a href="https://www.google.com/maps/place/Cris+Diniz+Depila%C3%A7%C3%A3o/@-22.9169464,-43.6281679,17z/data=!4m8!3m7!1s0x9bfb6e988d3611:0x4c373ee4cbd97ea2!8m2!3d-22.9169514!4d-43.625593!9m1!1b1!16s%2Fg%2F11jg43mt50?entry=ttu&g_ep=EgoyMDI1MDQyOS4wIKXMDSoASAFQAw%3D%3D" class="btn-primary btn-view-more" target="_blank">
                     Saiba Mais <!-- Texto alterado -->
                  </a>
@@ -208,9 +293,9 @@
 
     <section id="contato" class="section contact-section">
         <div class="container">
-            <h2 class="section-title">Contato</h2>
-            <p>Agende seu atendimento conosco através do nosso Whatsapp:</p>
-            <a href="https://wa.me/5521976430017?text=Olá! Gostaria de agendar um atendimento com a Cris Diniz." class="btn-whatsapp" target="_blank">
+            <h2 class="section-title animate-on-scroll">Contato</h2>
+            <p class="animate-on-scroll">Agende seu atendimento conosco através do nosso Whatsapp:</p>
+            <a href="https://wa.me/5521976430017?text=Olá! Gostaria de agendar um atendimento com a Cris Diniz." class="btn-whatsapp animate-on-scroll" target="_blank">
                  <i class="fab fa-whatsapp"></i> Agendar via WhatsApp
             </a>
         </div>
@@ -219,12 +304,12 @@
     <footer>
         <div class="container">
             <div class="footer-content-wrapper">
-                <div class="social-links footer-social-links">
+                <div class="social-links footer-social-links animate-on-scroll">
                     <a href="https://www.instagram.com/crisdinizdepilacao/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.tiktok.com/search?q=crisdinizdepilacao&t=1746075567622" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
                     <a href="https://facebook.com/crisdinizdepilacao/" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                 </div>
-                <p>© 2025 Cris Diniz Depilação. Todos os direitos reservados.</p>
+                <p class="animate-on-scroll">© 2025 Cris Diniz Depilação. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
@@ -232,6 +317,22 @@
     <button id="back-to-top" title="Voltar ao Topo">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- ESTRUTURA DO MODAL -->
+    <div id="myModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+             <div class="modal-image-container">
+                 <img id="modal-image" src="" alt="Imagem do Item">
+             </div>
+            <h3 id="modal-title">Título do Item</h3>
+            <p id="modal-description">Descrição completa do item.</p>
+             <!-- O botão será configurado pelo JS -->
+            <a href="#" id="modal-button" class="btn-primary" target="_blank">Botão de Ação</a>
+        </div>
+    </div>
+    <!-- FIM ESTRUTURA DO MODAL -->
+
 
     <script src="script.js"></script>
 </body>
