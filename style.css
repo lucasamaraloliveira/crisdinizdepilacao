@@ -940,6 +940,19 @@ footer {
     transform: translateY(0);
 }
 
+/* >>> ESTILO DO BOTÃO DE FECHAR MOVIDO PARA AQUI <<< */
+.close-button {
+    position: absolute;
+    top: 1px;
+    right: 5px;
+    font-size: 2em;
+    font-weight: bold;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+/* >>> FIM DO ESTILO MOVIDO <<< */
+
 
 .modal-image-container {
     margin-bottom: 20px;
@@ -1688,16 +1701,8 @@ footer {
          margin-bottom: 30px; /* Espaço ANTES do novo bloco */
      }
 
-     .close-button {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        font-size: 2em;
-        font-weight: bold;
-        color: var(--primary-color);
-        cursor: pointer;
-        transition: color 0.3s ease;
-    }
+     /* A regra .close-button foi movida para fora da media query */
+     /* .close-button { ... } */
 
      /* Estilos para o novo bloco de informações adicionais do curso (Desktop) */
     .modal-content .course-modal-extra-info {
