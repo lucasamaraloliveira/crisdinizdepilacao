@@ -212,11 +212,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalTitle = modal ? document.getElementById('modal-title') : null;
     const modalDescription = modal ? document.getElementById('modal-description') : null;
     const modalButton = modal ? document.getElementById('modal-button') : null;
+    // Referência ao novo bloco de informações extras
+    const courseModalExtraInfo = modal ? modal.querySelector('.course-modal-extra-info') : null;
 
-    function openModal(title, description, imageUrl, buttonText, buttonAction, targetUrl) {
-        if (!modal || !modalContent || !modalImage || !modalTitle || !modalDescription || !modalButton) {
-            console.error("Elementos do modal não encontrados.");
-            return;
+
+    // Modifique a assinatura da função openModal para aceitar 'itemType'
+    function openModal(title, description, imageUrl, buttonText, buttonAction, targetUrl, itemType) { // Adicionado itemType
+
+        // Adicionado courseModalExtraInfo na verificação
+        if (!modal || !modalContent || !modalImage || !modalTitle || !modalDescription || !modalButton || !courseModalExtraInfo) {
+            console.error("Elementos do modal não encontrados ou alguns não foram encontrados.");
+            // Tenta abrir o modal mesmo que algum elemento extra não seja encontrado
+            if (modal) modal.classList.add('open');
+             if (body) body.classList.add('no-scroll');
+            return; // Sai se os elementos críticos não forem encontrados
         }
 
         modalTitle.textContent = title;
@@ -224,31 +233,35 @@ document.addEventListener('DOMContentLoaded', function() {
         modalImage.src = imageUrl || '';
         modalImage.alt = title || 'Imagem do Item';
 
+        // --- Controla a visibilidade do bloco de informações extras ---
+        if (itemType === 'course') {
+            courseModalExtraInfo.style.display = 'block'; // Mostra o bloco se for um curso
+        } else {
+            courseModalExtraInfo.style.display = 'none'; // Oculta o bloco para outros tipos (ebooks)
+        }
+        // --- Fim controle de visibilidade ---
+
+
         modalButton.textContent = buttonText;
         modalButton.setAttribute('target', '_blank');
-        modalButton.classList.remove('btn-modal-whatsapp', 'btn-modal-hotmart', 'btn-primary'); // Remove classes de ação/estilo anteriores
-         modalButton.classList.add('btn-primary'); // Adiciona a classe base btn-primary
-
+        modalButton.classList.remove('btn-modal-whatsapp', 'btn-modal-hotmart', 'btn-primary');
+        modalButton.classList.add('btn-primary'); // Adiciona a classe base
 
         modalButton.style.display = ''; // Garante que o botão seja exibido por padrão
 
         if (buttonAction === 'whatsapp') {
-            modalButton.classList.add('btn-modal-whatsapp');
+            modalButton.classList.add('btn-modal-whatsapp'); // Adiciona classe para estilo específico do WhatsApp
             const encodedMessage = encodeURIComponent(`Olá! Tenho interesse no curso: ${title}`);
             modalButton.href = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
         } else if (buttonAction === 'hotmart') {
-             // Note: Estamos usando targetUrl diretamente aqui, vindo do data attribute do item
-             // A classe btn-primary já dá o estilo padrão, btn-modal-hotmart pode ser apenas para semântica ou estilos específicos se necessário
-             modalButton.classList.add('btn-modal-hotmart');
+             modalButton.classList.add('btn-modal-hotmart'); // Adiciona classe para estilo específico do Hotmart (opcional)
              modalButton.href = targetUrl;
 
-             // Verificação de URL Hotmart movida para o listener para ser mais específica por item
-             // (Já feita nos listeners de clique)
+            // ... (verificação de URL Hotmart movida para o listener, como já está) ...
 
         } else {
-            // Se buttonAction for 'none' ou indefinido
-            modalButton.style.display = 'none'; // Esconde o botão
-            modalButton.href = '#'; // Define um href seguro
+            modalButton.style.display = 'none';
+            modalButton.href = '#';
         }
 
 
@@ -261,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.classList.remove('open');
             // Atraso para remover no-scroll, permitindo que a transição do modal termine
             setTimeout(() => {
-                body.classList.remove('no-scroll');
+                if (body) body.classList.remove('no-scroll');
             }, 300); // 300ms é o tempo da transição de opacidade no CSS
         }
     }
@@ -282,11 +295,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const title = item.querySelector('h3').textContent;
             const description = item.getAttribute('data-full-description');
             // Usa data-large-image se existir, caso contrário usa a imagem do próprio item
-            const imageUrl = item.getAttribute('data-large-image') || (item.querySelector('img') ? item.querySelector('img').src : '');
+            const itemImg = item.querySelector('img');
+            const imageUrl = item.getAttribute('data-large-image') || (itemImg ? itemImg.src : '');
             const buttonText = 'Tenho interesse no curso!';
             const buttonAction = 'whatsapp'; // Ação para linkar para o WhatsApp
 
-            openModal(title, description, imageUrl, buttonText, buttonAction);
+            // Chamar openModal, passando 'course' como itemType
+            openModal(title, description, imageUrl, buttonText, buttonAction, null, 'course');
         });
     });
 
@@ -305,7 +320,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const title = item.querySelector('h3').textContent;
             const description = item.getAttribute('data-full-description');
             // Usa data-large-image se existir, caso contrário usa a imagem do próprio item
-            const imageUrl = item.getAttribute('data-large-image') || (item.querySelector('img') ? item.querySelector('img').src : '');
+             const itemImg = item.querySelector('img');
+            const imageUrl = item.getAttribute('data-large-image') || (itemImg ? itemImg.src : '');
             const hotmartUrl = item.getAttribute('data-hotmart-url');
             const buttonText = 'Comprar Ebook na Hotmart!';
             const buttonAction = 'hotmart'; // Ação para linkar para a Hotmart
@@ -318,8 +334,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return; // Sai da função, não abre o modal
             }
 
-
-            openModal(title, description, imageUrl, buttonText, buttonAction, hotmartUrl);
+            // Chamar openModal, passando 'ebook' como itemType
+            openModal(title, description, imageUrl, buttonText, buttonAction, hotmartUrl, 'ebook');
         });
     });
     // --- FIM LISTENERS PARA ABRIR MODAL ---
@@ -371,15 +387,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            const parentSection = entry.target.closest('.section');
-            // Verifica se a seção pai existe e se tem a classe 'hidden'
+            const parentSection = entry.target.closest('.section'); // Encontra a seção pai
+            // Verifica se a seção pai existe e se tem a classe 'hidden' (usada para promoções)
             const isHidden = parentSection && parentSection.classList.contains('hidden');
 
+            // Só anima se estiver intersectando E a seção PAI não estiver oculta
             if (entry.isIntersecting && !isHidden) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Para de observar depois de animar
+                // observer.unobserve(entry.target); // Opcional: Para de observar depois de animar
             }
-             // Não remove a classe 'visible' se sair da tela, mantém a animação visível
+             // Se você quiser que eles desapareçam ao sair da tela, descomente a linha abaixo
+            // else if (!entry.isIntersecting) {
+            //     entry.target.classList.remove('visible');
+            // }
         });
     }, {
         threshold: 0.1, // Quantidade do elemento visível para disparar
@@ -389,8 +409,14 @@ document.addEventListener('DOMContentLoaded', function() {
     elementsToAnimate.forEach(element => {
          const parentSection = element.closest('.section');
          const isHidden = parentSection && parentSection.classList.contains('hidden');
+         // Só observa o elemento se a seção pai NÃO estiver oculta
          if (!isHidden) {
-            observer.observe(element); // Só observa se a seção não estiver oculta
+            observer.observe(element);
+         } else {
+             // Se a seção estiver oculta, garante que o elemento não tenha a classe 'visible'
+             element.classList.remove('visible');
          }
     });
-});
+
+
+}); // Fim do DOMContentLoaded

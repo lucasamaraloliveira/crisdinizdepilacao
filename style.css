@@ -927,7 +927,7 @@ footer {
     width: 500px;
     position: relative;
     box-shadow: var(--hover-shadow);
-    text-align: center;
+    text-align: center; /* Centraliza o conteúdo geral */
     max-height: 90vh;
     overflow-y: auto;
     transform: translateY(-50px);
@@ -961,25 +961,79 @@ footer {
 .modal-content p {
     font-size: 1.1em;
     line-height: 1.6;
-    margin-bottom: 25px;
+    margin-bottom: 25px; /* Espaço ANTES do novo bloco */
     color: var(--text-color);
-    text-align: left;
+    text-align: left; /* Garante que os parágrafos do modal fiquem alinhados à esquerda */
 }
 
-.close-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 2em;
-    font-weight: bold;
+/* Estilos para o novo bloco de informações adicionais do curso */
+.modal-content .course-modal-extra-info {
+    margin-top: 20px; /* Espaço acima do bloco */
+    margin-bottom: 20px; /* Espaço abaixo do bloco */
+    padding: 15px; /* Preenchimento interno */
+    background-color: var(--light-bg); /* Fundo claro para destacar */
+    border-radius: 8px;
+    text-align: left; /* Alinha o texto dentro deste bloco à esquerda */
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1); /* Sombra interna sutil */
+     display: none; /* Oculta por padrão. Será mostrado pelo JS APENAS para cursos. */
+}
+
+.modal-content .course-modal-extra-info h4 {
+    font-size: 1.3em; /* Tamanho menor que o título principal do modal (h3) */
     color: var(--primary-color);
-    cursor: pointer;
-    transition: color 0.3s ease;
+    margin-bottom: 10px;
+    text-align: center; /* Centraliza o título do bloco */
 }
 
-.close-button:hover {
-    color: var(--accent-color);
+.modal-content .course-modal-extra-info p {
+    font-size: 1em; /* Tamanho um pouco menor que a descrição principal */
+    margin-bottom: 10px; /* Espaço entre parágrafos dentro do bloco */
+    color: var(--text-color);
+    text-align: left; /* Parágrafos normais dentro do bloco alinhados à esquerda */
+    line-height: 1.5; /* Ajuste da altura da linha */
 }
+
+.modal-content .course-modal-extra-info ul {
+    list-style: none; /* Remove marcadores padrão da lista */
+    padding-left: 0; /* Remove o padding padrão da lista */
+    margin-bottom: 15px; /* Espaço abaixo da lista */
+}
+
+.modal-content .course-modal-extra-info li {
+    margin-bottom: 8px; /* Espaço entre os itens da lista */
+    color: var(--text-color);
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+.modal-content .course-modal-extra-info li span {
+     margin-right: 8px; /* Espaço entre o checkmark e o texto */
+     color: var(--primary-color); /* Cor do checkmark */
+     font-weight: bold; /* Negrito para o checkmark */
+     display: inline-block; /* Permite controlar margin e alinhamento vertical */
+     min-width: 1em; /* Garante que o checkmark ocupe um espaço mínimo */
+     text-align: center; /* Centraliza o checkmark dentro do seu span */
+}
+
+/* Estilo específico para o último parágrafo do bloco */
+.modal-content .course-modal-extra-info .course-modal-outro {
+     font-style: italic;
+     text-align: center; /* Centraliza o texto motivacional */
+     margin-top: 15px; /* Espaço acima deste parágrafo */
+     margin-bottom: 0; /* Sem margem abaixo, pois o botão virá em seguida */
+     color: var(--primary-color); /* Cor destacada */
+     font-weight: 600;
+}
+
+/* Ajuste as margens da descrição principal e do botão para acomodar o novo bloco */
+.modal-content #modal-description {
+     margin-bottom: 25px; /* Espaço ANTES do novo bloco */
+}
+
+#modal-button {
+     margin-top: 25px; /* Espaço DEPOIS do novo bloco */
+}
+
 
 /* Estilos específicos para os botões dentro do modal (herdam de btn-primary) */
 #modal-button {
@@ -1087,6 +1141,7 @@ footer {
     .section-title {
         font-size: 2.5em;
         margin-bottom: 50px;
+        margin-top: 0; /* Garantir que não haja margem superior excessiva */
     }
     .section-title::after {
         bottom: -15px;
@@ -1310,6 +1365,7 @@ footer {
          width: 150px;
          height: 150px;
          border-radius: 10px;
+         object-fit: cover; /* Adicionado object-fit */
          margin-bottom: 15px;
          border: 4px solid var(--secondary-color);
          box-shadow: var(--shadow);
@@ -1409,6 +1465,7 @@ footer {
          width: 150px;
          height: 150px;
          border-radius: 10px;
+         object-fit: cover; /* Adicionado object-fit */
          margin-bottom: 15px;
          border: 4px solid var(--secondary-color);
          box-shadow: var(--shadow);
@@ -1500,54 +1557,54 @@ footer {
     }
     /* FIM SEÇÃO: DEPOIMENTOS */
 
-
-    /* NOVA SEÇÃO: NÓS NA MÍDIA - Desktop */
-    .midia-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Layout responsivo com itens de no mínimo 300px */
-        gap: 30px; /* Espaçamento entre os itens */
-    }
-
-    .midia-item {
-        padding: 20px;
-        border-radius: 10px;
-         transform: translateY(30px); /* Para animação */
-    }
-
-    .midia-item img {
-        width: 150px; /* Tamanho da imagem no desktop */
-        height: 150px; /* Altura da imagem no desktop */
-        border-radius: 10px; /* Bordas arredondadas */
-        margin-bottom: 15px;
-        border: 4px solid var(--secondary-color); /* Borda colorida */
-    }
-
-    .midia-item h3 {
-        font-size: 1.4em; /* Tamanho do título no desktop */
-    }
-
-    .midia-item p {
-        font-size: 1em; /* Tamanho do parágrafo no desktop */
-        margin-bottom: 20px; /* Espaço entre o texto e o botão */
-    }
-
-    .midia-grid .midia-item:nth-child(odd) {
-        transition-delay: 0.1s;
-    }
-    .midia-grid .midia-item:nth-child(even) {
-        transition-delay: 0.2s;
-    }
-     .midia-grid .midia-item:nth-child(3n) { /* Adiciona mais delays para layouts maiores */
-         transition-delay: 0.3s;
-     }
-     .midia-grid .midia-item:nth-child(4n) {
-         transition-delay: 0.4s;
+     /* NOVA SEÇÃO: NÓS NA MÍDIA - Desktop */
+     .midia-grid {
+         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Layout responsivo com itens de no mínimo 300px */
+         gap: 30px; /* Espaçamento entre os itens */
      }
 
-    .midia-item:hover {
-         transform: translateY(-8px);
-         box-shadow: var(--hover-shadow);
+     .midia-item {
+         padding: 20px;
+         border-radius: 10px;
+          transform: translateY(30px); /* Para animação */
      }
-    /* FIM NOVA SEÇÃO: NÓS NA MÍDIA */
+
+     .midia-item img {
+         width: 150px; /* Tamanho da imagem no desktop */
+         height: 150px; /* Altura da imagem no desktop */
+         border-radius: 10px; /* Bordas arredondadas */
+         margin-bottom: 15px;
+         border: 4px solid var(--secondary-color); /* Borda colorida */
+     }
+
+     .midia-item h3 {
+         font-size: 1.4em; /* Tamanho do título no desktop */
+     }
+
+     .midia-item p {
+         font-size: 1em; /* Tamanho do parágrafo no desktop */
+         margin-bottom: 20px; /* Espaço entre o texto e o botão */
+     }
+
+     .midia-grid .midia-item:nth-child(odd) {
+         transition-delay: 0.1s;
+     }
+     .midia-grid .midia-item:nth-child(even) {
+         transition-delay: 0.2s;
+     }
+      .midia-grid .midia-item:nth-child(3n) { /* Adiciona mais delays para layouts maiores */
+          transition-delay: 0.3s;
+      }
+      .midia-grid .midia-item:nth-child(4n) {
+          transition-delay: 0.4s;
+      }
+
+
+     .midia-item:hover {
+          transform: translateY(-8px);
+          box-shadow: var(--hover-shadow);
+      }
+     /* FIM NOVA SEÇÃO: NÓS NA MÍDIA */
 
 
     /* Seção Contato - Desktop */
@@ -1628,13 +1685,49 @@ footer {
 
      .modal-content p {
          font-size: 1.1em;
-         margin-bottom: 30px;
+         margin-bottom: 30px; /* Espaço ANTES do novo bloco */
      }
 
      .close-button {
-         font-size: 2.5em;
-         top: 20px;
-         right: 20px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 2em;
+        font-weight: bold;
+        color: var(--primary-color);
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+     /* Estilos para o novo bloco de informações adicionais do curso (Desktop) */
+    .modal-content .course-modal-extra-info {
+         margin-top: 25px;
+         margin-bottom: 25px;
+         padding: 20px;
+    }
+    .modal-content .course-modal-extra-info h4 {
+        font-size: 1.4em;
+        margin-bottom: 12px;
+    }
+    .modal-content .course-modal-extra-info p {
+        font-size: 1.05em;
+        margin-bottom: 12px;
+    }
+     .modal-content .course-modal-extra-info li {
+         margin-bottom: 10px;
+         font-size: 1.05em;
+     }
+      .modal-content .course-modal-extra-info li span {
+          font-size: 1.1em;
+      }
+      .modal-content .course-modal-extra-info .course-modal-outro {
+          margin-top: 20px;
+      }
+     .modal-content #modal-description {
+         margin-bottom: 30px;
+     }
+      #modal-button {
+         margin-top: 30px;
      }
     /* --- FIM ESTILOS DO MODAL (Desktop) --- */
 }
@@ -1704,7 +1797,11 @@ footer {
      .course-item img {
          width: 180px;
          height: 180px;
+         border-radius: 10px;
+         object-fit: cover; /* Adicionado object-fit */
          margin-bottom: 20px;
+         border: 4px solid var(--secondary-color);
+         box-shadow: var(--shadow);
      }
 
       .course-item h3 {
@@ -1737,6 +1834,8 @@ footer {
       .promotion-item img {
          width: 180px;
          height: 180px;
+         border-radius: 10px;
+         object-fit: cover;
          margin-bottom: 20px;
      }
 
@@ -1771,7 +1870,11 @@ footer {
      .ebook-item img {
          width: 180px;
          height: 180px;
+         border-radius: 10px;
+         object-fit: cover; /* Adicionado object-fit */
          margin-bottom: 20px;
+         border: 4px solid var(--secondary-color);
+         box-shadow: var(--shadow);
      }
 
       .ebook-item h3 {
@@ -1788,6 +1891,7 @@ footer {
          box-shadow: var(--hover-shadow);
      }
     /* FIM NOVA SEÇÃO: MEUS EBOOKS */
+
 
      /* NOVA SEÇÃO: NÓS NA MÍDIA - Desktop Grande */
      .midia-grid {
@@ -1828,9 +1932,9 @@ footer {
       }
 
      .midia-item:hover {
-         transform: translateY(-8px);
-         box-shadow: var(--hover-shadow);
-     }
+          transform: translateY(-8px);
+          box-shadow: var(--hover-shadow);
+      }
      /* FIM NOVA SEÇÃO: NÓS NA MÍDIA */
 
 
@@ -1881,4 +1985,35 @@ footer {
      .social-icon:hover {
          transform: scale(1.2);
      }
+
+     /* Estilos para o novo bloco de informações adicionais do curso (Desktop Grande) */
+     .modal-content .course-modal-extra-info {
+         margin-top: 30px;
+         margin-bottom: 30px;
+         padding: 25px;
+     }
+      .modal-content .course-modal-extra-info h4 {
+           font-size: 1.5em;
+           margin-bottom: 15px;
+       }
+       .modal-content .course-modal-extra-info p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+       .modal-content .course-modal-extra-info li {
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+         .modal-content .course-modal-extra-info li span {
+            font-size: 1.2em;
+         }
+         .modal-content .course-modal-extra-info .course-modal-outro {
+             margin-top: 25px;
+         }
+        .modal-content #modal-description {
+             margin-bottom: 35px;
+         }
+          #modal-button {
+             margin-top: 35px;
+         }
 }
