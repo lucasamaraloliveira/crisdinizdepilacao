@@ -940,31 +940,38 @@ footer {
     transform: translateY(0);
 }
 
-/* >>> ESTILO DO BOTÃO DE FECHAR MOVIDO PARA AQUI <<< */
+/* ESTILO DO BOTÃO DE FECHAR (Aplicado a todas as telas) */
 .close-button {
     position: absolute;
-    top: 1px;
-    right: 5px;
+    top: 15px; /* Ajustado para 15px como no desktop original */
+    right: 15px; /* Ajustado para 15px como no desktop original */
     font-size: 2em;
     font-weight: bold;
     color: var(--primary-color);
     cursor: pointer;
     transition: color 0.3s ease;
 }
-/* >>> FIM DO ESTILO MOVIDO <<< */
 
 
 .modal-image-container {
     margin-bottom: 20px;
 }
 
+/* >>> ESTILO DA IMAGEM DO MODAL PADRONIZADO PARA TODAS AS TELAS <<< */
 .modal-image-container img {
-    max-width: 100%;
-    height: auto;
+    width: 200px;        /* Define a largura fixa */
+    height: 200px;       /* Define a altura fixa */
+    object-fit: cover;   /* Garante que a imagem cubra a área sem distorcer, cortando se necessário */
+    max-width: 100%;     /* Garante que não ultrapasse o container em telas muito pequenas */
+    display: block;      /* Centraliza a imagem */
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 8px;
     box-shadow: var(--shadow);
-    border: 3px solid var(--secondary-color);
+    border: 3px solid var(--secondary-color); /* Mantém a borda mobile-first */
 }
+/* >>> FIM DO ESTILO PADRONIZADO <<< */
+
 
 .modal-content h3 {
     font-size: 1.6em;
@@ -1683,6 +1690,8 @@ footer {
         padding: 40px;
     }
 
+    /* A regra para a imagem do modal agora está padronizada fora da media query */
+    /*
     .modal-image-container img {
          max-width: 200px;
          height: 200px;
@@ -1690,6 +1699,12 @@ footer {
          object-fit: cover;
          border: 4px solid var(--secondary-color);
      }
+     */
+    /* Pode ajustar a borda aqui se quiser uma borda diferente em desktop */
+    .modal-image-container img {
+         border: 4px solid var(--secondary-color); /* Borda um pouco mais grossa no desktop */
+    }
+
 
      .modal-content h3 {
          font-size: 1.8em;
@@ -1938,7 +1953,7 @@ footer {
 
      .midia-item:hover {
           transform: translateY(-8px);
-          box-shadow: var(--hover-shadow);
+          box-shadow: var(--hover--shadow);
       }
      /* FIM NOVA SEÇÃO: NÓS NA MÍDIA */
 
