@@ -733,9 +733,7 @@ nav .container {
     margin-top: 30px; /* Ajustado para Mobile */
 }
 
-.btn-view-more {
-    /* Inherits styles from .btn-primary */
-}
+
 /* FIM SEÇÃO: DEPOIMENTOS */
 
 /* NOVA SEÇÃO: NÓS NA MÍDIA - Mobile First */
@@ -943,8 +941,8 @@ footer {
 /* ESTILO DO BOTÃO DE FECHAR (Aplicado a todas as telas) */
 .close-button {
     position: absolute;
-    top: 15px; /* Ajustado para 15px como no desktop original */
-    right: 15px; /* Ajustado para 15px como no desktop original */
+    top: 5px; /* Ajustado para 15px como no desktop original */
+    right: 20px; /* Ajustado para 15px como no desktop original */
     font-size: 2em;
     font-weight: bold;
     color: var(--primary-color);
